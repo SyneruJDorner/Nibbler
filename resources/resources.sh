@@ -1,28 +1,41 @@
 #/bin/bash
 
-#Brew Install SFML
-if brew ls --versions sfml > /dev/null; then
-  # The package is installed
-  echo SFML INSTALLED
-else
-  # The package is not installed
-  brew install sfml
-fi
+#Library Repo's
+glfwRepo="https://github.com/glfw/glfw.git"
+sdlRepo="https://hg.libsdl.org/SDL"
 
-#Brew Install GLFW
-if brew ls --versions glfw > /dev/null; then
-  # The package is installed
-  echo GLFW INSTALLED
-else
-  # The package is not installed
-  brew install glfw
-fi
+#Specific Directory Names
+glfw="GLFW"
+sdl="SDL"
 
-#Brew Install SDL2
-if brew ls --versions sdl2 > /dev/null; then
-  # The package is installed
-  echo SDL2 INSTALLED
-else
-  # The package is not installed
-  brew install sdl2
-fi
+#Main Directory Names
+sourceDir="source"
+buildDir="build"
+
+#Create build and source directories
+mkdir -p "$sourceDir"
+mkdir -p "$buildDir"
+
+cd "$sourceDir"
+
+#clone Repo's into Source Directory
+git submodule add --force "$glfwRepo" "$glfw"
+hg clone "$sdlRepo" "$sdl"
+
+cd ..
+cd "$buildDir"
+
+#Create folders to cmake into
+mkdir -p "$glfw"
+mkdir -p "$sdl"
+
+#cmake and build projects from repo
+cd "$glfw"
+cmake ../../"$sourceDir"/"$glfw"
+make
+
+cd ..
+
+cd "$sdl"
+../../"$sourceDir"/"$sdl"/configure
+make

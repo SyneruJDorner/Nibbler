@@ -3,6 +3,17 @@
 #include <thread>
 #include <iostream>
 
+
+#include "../resources/source/CINDER/include/cinder/Camera.h"
+#include "../resources/source/CINDER/include/cinder/Log.h"
+#include "../resources/source/CINDER/include/cinder/Rand.h"
+#include "../resources/source/CINDER/include/cinder/app/App.h"
+#include "../resources/source/CINDER/include/cinder/app/RendererGl.h"
+#include "../resources/source/CINDER/include/cinder/gl/GlslProg.h"
+#include "../resources/source/CINDER/include/cinder/gl/gl.h"
+
+
+
 //Initialize world
 void Init()
 {
@@ -28,5 +39,7 @@ int	main()
 {
     Init();
     Update();
+
+       
     return 0;
 }
