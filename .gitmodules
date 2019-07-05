@@ -1,0 +1,12 @@
+[submodule "resources/SFML"]
+	path = resources/SFML
+	url = https://github.com/SFML/SFML.git
+[submodule "resources/glfw"]
+	path = resources/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "resources/source/GLFW"]
+	path = resources/source/GLFW
+	url = https://github.com/glfw/glfw.git
+[submodule "resources/source/SFML"]
+	path = resources/source/SFML
+	url = https://github.com/SFML/SFML.git
