@@ -12,7 +12,7 @@ Interceptor::Interceptor()
 
 Interceptor::Interceptor(Interceptor &obj)
 {
-
+    (void)obj;
 }
 
 Interceptor::~Interceptor()
@@ -20,7 +20,9 @@ Interceptor::~Interceptor()
 
 }
 
+/*
 Interceptor &Interceptor::operator=(Interceptor const &other)
 {
 
 }
+*/

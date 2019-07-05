@@ -12,7 +12,7 @@ ObsticleCollection::ObsticleCollection()
 
 ObsticleCollection::ObsticleCollection(ObsticleCollection &obj)
 {
-
+    (void)obj;
 }
 
 ObsticleCollection::~ObsticleCollection()
@@ -20,7 +20,9 @@ ObsticleCollection::~ObsticleCollection()
 
 }
 
+/*
 ObsticleCollection &ObsticleCollection::operator=(ObsticleCollection const &other)
 {
 
 }
+*/
