@@ -12,7 +12,7 @@ GameManager::GameManager()
 
 GameManager::GameManager(GameManager &obj)
 {
-
+    (void)obj;
 }
 
 GameManager::~GameManager()
@@ -20,7 +20,9 @@ GameManager::~GameManager()
 
 }
 
+/*
 GameManager &GameManager::operator=(GameManager const &other)
 {
 
 }
+*/

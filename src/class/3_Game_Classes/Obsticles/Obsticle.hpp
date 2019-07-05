@@ -1,4 +1,4 @@
-#ifndef OBSTICLES_HPP
+#ifndef OBSTICLE_HPP
 # define OBSTICLE_HPP
 
 # include <string>

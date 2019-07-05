@@ -12,7 +12,7 @@ Player::Player()
 
 Player::Player(Player &obj)
 {
-
+    (void)obj;
 }
 
 Player::~Player()
@@ -20,7 +20,9 @@ Player::~Player()
 
 }
 
+/*
 Player &Player::operator=(Player const &other)
 {
-
+    (void)other;
 }
+*/

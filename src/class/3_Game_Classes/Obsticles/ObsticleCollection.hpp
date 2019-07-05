@@ -1,4 +1,4 @@
-#ifndef OBSTICLESCOLLECTION_HPP
+#ifndef OBSTICLECOLLECTION_HPP
 # define OBSTICLECOLLECTION_HPP
 
 # include <string>
