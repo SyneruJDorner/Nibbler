@@ -2,7 +2,6 @@
 #include <ctime>
 #include <sys/select.h>
 #define STDIN_FILENO 0
-#define MAXINPUTS 20
 
 //Create a singolton access point.
 //You can easily access anything therogh the following.
@@ -37,26 +36,25 @@ int kbhit(void)
     fd_set read_fd;
 
     /* Do not wait at all, not even a microsecond */
-    tv.tv_sec=0;
-    tv.tv_usec=0;
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
 
     /* Must be done first to initialize read_fd */
     FD_ZERO(&read_fd);
 
     /* Makes select() ask if input is ready:
     * 0 is the file descriptor for stdin    */
-    FD_SET(0,&read_fd);
+    FD_SET(0, &read_fd);
 
     /* The first parameter is the number of the
     * largest file descriptor to check + 1. */
-    if(select(1, &read_fd,NULL, /*No writes*/NULL, /*No exceptions*/&tv) == -1)
+    if(select(1, &read_fd, NULL, /*No writes*/NULL, /*No exceptions*/&tv) == -1)
         return 0;  /* An error occured */
 
     /*  read_fd now holds a bit map of files that are
     * readable. We test the entry for the standard
     * input (file 0). */
-  
-    if(FD_ISSET(0,&read_fd))
+    if(FD_ISSET(0, &read_fd))
         /* Character pending on stdin */
         return 1;
     /* no characters were pending */
@@ -65,25 +63,22 @@ int kbhit(void)
 
 void Input::ResetInput()
 {
-    for (int i = 0; i < MAXINPUTS; i ++)
-    {
-        this->keyCode[i] = NUL;
-    }
+    this->keyCode = NUL;
 }
 
-void Input::SetKeycode(char c, int index)
+void Input::SetKeycode(char c)
 {
-    this->keyCode[index] = static_cast<KeyCode>(c);
+    this->keyCode = static_cast<KeyCode>(c);
 }
 
-KeyCode *Input::GetKeycodes()
+KeyCode Input::GetPressedKey()
 {
     return (this->keyCode);
 }
 
 void Input::DetermineInputs()
 {
-    char *pressedKeys = new char[MAXINPUTS];
+    char pressedKey = '\0';
 
     struct termios t_hide, t_show;
     tcgetattr(STDIN_FILENO, &t_show);
@@ -91,47 +86,30 @@ void Input::DetermineInputs()
     t_hide.c_lflag &= ~(ICANON | ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &t_hide);
 
-    for (int i = 0; i < MAXINPUTS; i++)
+    if(kbhit() != 0)
     {
-        bool skipKey = false;
-        if(kbhit() != 0)
-        {
-            int ch = getchar();
-
-            for (int j = 0; j < MAXINPUTS; j++)
-            {
-                if (pressedKeys[j] == ch)
-                    skipKey = true;
-            }
-
-            if (skipKey == false)
-            {
-                pressedKeys[i] = ch;
-                SetKeycode(ch, i);
-            }
-        }
+        int ch = getchar();
+        pressedKey = ch;
+        SetKeycode(ch);
     }
 
-    KeyCode *keys = GetKeycodes();
+    //KeyCode key = GetPressedKey();
+    //tcsetattr(STDIN_FILENO, TCSANOW, &t_show);
 
-    for (int i = 0; i < MAXINPUTS; i++)
-    {
-        if (keys[i] == NUL)
-            continue;
+    if (GetPressedKey() == NUL)
+        return;
 
-        if (keys[i] == W)
-            std::cout << "Up" << "\n";
+    if (GetPressedKey() == W)
+        std::cout << "Up" << "\n";
 
-        if (keys[i] == A)
-            std::cout << "Left" << "\n";
+    if (GetPressedKey() == A)
+        std::cout << "Left" << "\n";
 
-        if (keys[i] == S)
-            std::cout << "Down" << "\n";
+    if (GetPressedKey() == S)
+        std::cout << "Down" << "\n";
 
-        if (keys[i] == D)
-            std::cout << "Right" << "\n";
-    }
+    if (GetPressedKey() == D)
+        std::cout << "Right" << "\n";
 
-    delete[] pressedKeys;
     ResetInput();
 }

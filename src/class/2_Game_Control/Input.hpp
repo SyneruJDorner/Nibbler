@@ -24,9 +24,9 @@ class Input
 		static Input *instance;
 		void DetermineInputs();
 		void ResetInput();
-		void SetKeycode(char c, int index);
-		KeyCode *GetKeycodes();
-		KeyCode keyCode[20];
+		void SetKeycode(char c);
+		KeyCode GetPressedKey();
+		KeyCode keyCode;
 };
 
 #endif
