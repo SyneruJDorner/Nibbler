@@ -48,16 +48,14 @@ int kbhit(void)
 
     /* The first parameter is the number of the
     * largest file descriptor to check + 1. */
-    if(select(1, &read_fd, NULL, /*No writes*/NULL, /*No exceptions*/&tv) == -1)
-        return 0;  /* An error occured */
+    if(select(1, &read_fd, NULL, NULL, &tv) == -1)
+        return 0;
 
     /*  read_fd now holds a bit map of files that are
     * readable. We test the entry for the standard
     * input (file 0). */
     if(FD_ISSET(0, &read_fd))
-        /* Character pending on stdin */
         return 1;
-    /* no characters were pending */
     return 0;
 }
 
