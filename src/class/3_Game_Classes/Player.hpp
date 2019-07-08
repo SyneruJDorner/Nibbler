@@ -2,6 +2,7 @@
 # define PLAYER_HPP
 
 # include <string>
+#include "../2_Game_Control/Input.hpp"
 
 class Player
 {
@@ -11,6 +12,7 @@ class Player
 		virtual ~Player();
 		Player &operator=(Player const &other);
 		static Player *instance;
+		void PlayerMovement(KeyCode keycode);
 };
 
 #endif

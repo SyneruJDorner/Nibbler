@@ -76,9 +76,9 @@ KeyCode Input::GetPressedKey()
     return (this->keyCode);
 }
 
-void Input::DetermineInputs()
+KeyCode Input::DetermineInputs()
 {
-    char pressedKey = '\0';
+    KeyCode pressedKey;
 
     struct termios t_hide, t_show;
     tcgetattr(STDIN_FILENO, &t_show);
@@ -89,27 +89,10 @@ void Input::DetermineInputs()
     if(kbhit() != 0)
     {
         int ch = getchar();
-        pressedKey = ch;
         SetKeycode(ch);
     }
 
-    //KeyCode key = GetPressedKey();
-    //tcsetattr(STDIN_FILENO, TCSANOW, &t_show);
-
-    if (GetPressedKey() == NUL)
-        return;
-
-    if (GetPressedKey() == W)
-        std::cout << "Up" << "\n";
-
-    if (GetPressedKey() == A)
-        std::cout << "Left" << "\n";
-
-    if (GetPressedKey() == S)
-        std::cout << "Down" << "\n";
-
-    if (GetPressedKey() == D)
-        std::cout << "Right" << "\n";
-
+    pressedKey = GetPressedKey();
     ResetInput();
+    return pressedKey;
 }

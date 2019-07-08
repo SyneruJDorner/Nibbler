@@ -26,3 +26,18 @@ Player &Player::operator=(Player const &other)
     (void)other;
 }
 */
+
+void Player::PlayerMovement(KeyCode keycode)
+{
+    if (keycode == W)
+        std::cout << "Up" << std::endl;
+
+    if (keycode == A)
+        std::cout << "Left" << std::endl;
+
+    if (keycode == S)
+        std::cout << "Down" << std::endl;
+
+    if (keycode == D)
+        std::cout << "Right" << std::endl;
+}

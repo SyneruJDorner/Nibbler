@@ -22,10 +22,12 @@ class Input
 		virtual ~Input();
 		Input &operator=(Input const &other);
 		static Input *instance;
-		void DetermineInputs();
+		KeyCode DetermineInputs();
 		void ResetInput();
 		void SetKeycode(char c);
 		KeyCode GetPressedKey();
+
+	private:
 		KeyCode keyCode;
 };
 
