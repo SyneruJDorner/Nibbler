@@ -90,12 +90,22 @@ void Player::UpdateSnakeBody()
             break;
     }
 
+    //Move the head into the desired position
+    Vector2 HeadPreviousPos = this->snakeBody.Head;
     this->snakeBody.Head += MovementVector;
-    for (std::list<Vector2>::iterator it = this->snakeBody.Body.begin(); it != this->snakeBody.Body.end(); ++it)
-    {
-        this->snakeBody.Body[it] += MovementVector;
-    }
-    this->snakeBody.Tail += MovementVector;
+
+    //Move the last joint of the snakes body to the first point
+    //Still need to figure out a nice way to
+    //Update the coord on the body
+    Vector2 Joint = this->snakeBody.Body[this->snakeBody.Body.size() - 1];
+    jointPreviousPos = Joint;
+    joint = HeadPreviousPos; //This will set the last body part of the snake to the heads previous position
+    this->snakeBody.Body.pop_back();
+    this->snakeBody.Body.push_front(&Joint);
+
+    //Update the tails position based on the updated
+    //Joint above we use its previous pos
+    this->snakeBody.Tail += jointPreviousPos;
 }
 
 e_CollisionType Player::DetermineCollisions()
