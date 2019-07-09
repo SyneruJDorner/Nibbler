@@ -29,6 +29,18 @@ Player &Player::operator=(Player const &other)
 
 void World::SetupGrid(int width, int height)
 {
-    this->width = width;
-    this->height = height;
+    GridMinCoords.x = 0;
+    GridMinCoords.y = 0;
+    GridMaxCoords.x = width;
+    GridMaxCoords.y = height;
+}
+
+Vector2 World::GetMinGrid()
+{
+    return GridMinCoords;
+}
+
+Vector2 World::GetMaxGrid()
+{
+    return GridMaxCoords;
 }

@@ -13,6 +13,15 @@ struct SnakeBody
 	Vector2 Tail;
 }
 
+enum e_CollisionType
+{
+	None,
+	Body,
+	Tail,
+	Obsticle,
+	Pickup
+}
+
 class Player
 {
 	public:
@@ -22,7 +31,7 @@ class Player
 		Player &operator=(Player const &other);
 		static Player *instance;
 		void PlayerMovement(KeyCode keycode);
-		void DetermineCollisions();
+		e_CollisionType DetermineCollisions();
 
 	private:
 		void UpdateSnakeBody();

@@ -2,6 +2,7 @@
 # define WORLD_HPP
 
 # include <string>
+# include "../Transformation/Transform.hpp" 
 
 class World
 {
@@ -12,10 +13,12 @@ class World
 		World &operator=(World const &other);
 		static World *instance;
 		void SetupGrid(int width, int height);
+        Vector2 GetMinGrid();
+        Vector2 GetMaxGrid();
 
 	private:
-		int width;
-        int height;
+        Vector2 GridMinCoords;
+        Vector2 GridMaxCoords;
 };
 
 #endif

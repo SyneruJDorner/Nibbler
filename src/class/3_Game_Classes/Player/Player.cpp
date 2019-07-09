@@ -1,4 +1,5 @@
 #include "Player.hpp"
+#include "../_World/World.hpp"
 
 //Create a singolton access point.
 //You can easily access anything though the following.
@@ -97,7 +98,7 @@ void Player::UpdateSnakeBody()
     this->snakeBody.Tail += MovementVector;
 }
 
-void Player::DetermineCollisions()
+e_CollisionType Player::DetermineCollisions()
 {
     //Determine if the head touches any of the following:
     //-It's body
@@ -105,4 +106,31 @@ void Player::DetermineCollisions()
     //-An Obsticle
     //-Edge of world
     //-A fruit/collectable item
+
+    Vector2 headPos = this->snakeBody.Head;
+
+    //Body Collision
+    for (std::list<Vector2>::iterator it = this->snakeBody.Body.begin(); it != this->snakeBody.Body.end(); ++it)
+    {
+        if (headPos == this->snakeBody.Body[it])
+            return (e_CollisionType)Body;
+    }
+
+    //Tail Collision
+    if (headPos == this->snakeBody.Tail)
+        return (e_CollisionType)Tail;
+
+    //Obsticle
+    /*
+    for ()
+    if (headPos == this->snakeBody.Tail)
+        return (e_CollisionType)Tail;
+    */
+
+    //Edge of world
+    if (headPos.x <= World::instance->GetMinGrid().x || 
+        headPos.x >= World::instance->GetMaxGrid().x ||
+        headPos.y <= World::instance->GetMinGrid().y || 
+        headPos.y >= World::instance->GetMaxGrid().y)
+        return (e_CollisionType)Obsticle;
 }
