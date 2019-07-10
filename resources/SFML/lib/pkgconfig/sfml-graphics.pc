@@ -1,4 +1,4 @@
-prefix=/goinfre/pmotala/.brew/Cellar/sfml/2.5.1
+prefix=/goinfre/jdorner/.brew/Cellar/sfml/2.5.1
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

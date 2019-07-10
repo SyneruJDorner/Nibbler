@@ -4,31 +4,29 @@
 
 int main(int ac, char **av)
 {
-
-    (void)av;
     (void)ac;
-    sf::RenderWindow d(sf::VideoMode(900, 600), "Snake SFML");
-    // sf::RenderWindow window(sf::VideoMode(200,200), "Hello World");
-    // sf::CircleShape shape(100.f);
-    // shape.setPointCount(128);
-    // shape.setFillColor(sf::Color::Green);
+    (void)av;
 
-    // while (window.isOpen())
-    // {
-    //     sf::Event event;
-    //     while (window.pollEvent(event))
-    //     {
-    //         if (event.type == sf::Event::Closed)
-    //             window.close();
-    //     }
+bool exit = false;
 
-    //     window.clear();
-    //     window.draw(shape);
-    //     window.display();
-    // }
-    while (1)
-    {
-    }
-    
-    d.close();
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
+        while (!exit)
+        {
+            window.clear();
+            sf::Event ev;
+            window.pollEvent(ev);
+            if (ev.type == sf::Event::KeyPressed) {
+                switch (ev.key.code) {
+                
+                    case sf::Keyboard::Escape:
+                        exit = !exit;
+                        break;                
+                    default:
+                        break;
+                }
+            }
+            window.display();
+        }
+
+    return 0;
 }
