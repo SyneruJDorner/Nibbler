@@ -1,7 +1,7 @@
 prefix=/goinfre/pmotala/.brew/Cellar/glfw/3.3
 exec_prefix=${prefix}
-includedir=/goinfre/pmotala/Desktop/CPP/Nibbler/resources/GLFW/include
-libdir=/goinfre/pmotala/Desktop/CPP/Nibbler/resources/GLFW/lib
+includedir=/goinfre/pmotala/.brew/Cellar/glfw/3.3/include
+libdir=/goinfre/pmotala/.brew/Cellar/glfw/3.3/lib
 
 Name: GLFW
 Description: A multi-platform library for OpenGL, window and input

@@ -1,24 +1,20 @@
-FLAGS = -Wall -Werror -Wextra
-SRC = $(shell find . -name *.cpp)
-OBJ_DIR = ./obj/
-OBJ := $(SRC:%.cpp=$(OBJ_DIR)%.o)
-EXEPATH = ./Compiled_Application/
-EXECUTE = $(EXEPATH)TestMain
+NAME = libSnakeSFML.so
 
-#SDL = -L./lib/ -lSDL2 -lm -liconv -Wl,-framework,OpenGL -Wl,-framework,ForceFeedback -lobjc -Wl,-framework,Cocoa -Wl,-framework,Carbon -Wl,-framework,IOKit -Wl,-framework,CoreAudio -Wl,-framework,AudioToolbox -Wl,-framework,AudioUnit
-SDL = -Iinclude  -Llib -lSDL2  -lSDL2main 
+SRC = SnakeSFML.cpp
+SRC2 =  testmain.cpp
+CC = g++ -Wall -Wextra -Werror -std=c++11
 
-all: $(EXECUTE)
+FLAGS =  -Llib -lSDL2  -lSDL2main 
 
-$(EXECUTE): $(OBJ)
-	@mkdir -p '$(@D)'
-	@echo "COMPILING SOURCE $< INTO OBJECT $@"
-	g++ -std=c++11 $(FLAGS) -o $@ $^ $(SDL)
+all: $(NAME)
 
-$(OBJ_DIR)%.o: %.cpp
-	@mkdir -p '$(@D)'
-	clang++ -std=c++11 $(FLAGS) -c -o $@ $<
+$(NAME): fclean
+	@  $(CC) -o snake $(SRC2)  -I include $(FLAGS)
+	@ # $(CC) -shared -fPIC -o $(NAME) $(SRC) -I ../ -I SFML/include $(FLAGS)
 
-fclean:
-	@rm -rf $(OBJ_DIR)
-	@rm -rf $(EXEPATH)
+clean:
+	@rm -fr $(NAME)
+
+fclean : clean
+
+re: fclean all

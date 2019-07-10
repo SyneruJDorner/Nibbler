@@ -1,4 +1,4 @@
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <iostream>
 
 int main(int ac, char **av) {
@@ -41,8 +41,18 @@ if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     SDL_SetRenderDrawColor(render, 255, 0, 0, 255);
     SDL_RenderPresent(render);
 
+    bool isquit = false;
+    SDL_Event event;
+    while (!isquit) {
+        if (SDL_PollEvent( & event)) {
+            if (event.type == SDL_QUIT) {
+                isquit = true;
+            }
+        }
+    }
+
     // while(1) {}
-    SDL_Delay(8000);  // Pause execution for 3000 milliseconds, for example
+    //SDL_Delay(8000);  // Pause execution for 3000 milliseconds, for example
     // printf("Could not create window:");÷
     
     // Close and destroy the window

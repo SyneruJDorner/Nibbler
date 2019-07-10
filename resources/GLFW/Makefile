@@ -1,23 +1,24 @@
-FLAGS = -Wall -Werror -Wextra
-SRC = $(shell find . -name *.cpp)
-OBJ_DIR = ./obj/
-OBJ := $(SRC:%.cpp=$(OBJ_DIR)%.o)
-EXEPATH = ./Compiled_Application/
-EXECUTE = $(EXEPATH)TestMain
+NAME = libSnakeSFML.so
 
-GLFW3 = -L./lib/ -I./include/GLFW -lglfw -framework OpenGL -framework IOKit -framework CoreVideo
+SRC = SnakeSFML.cpp
+SRC2 =  testmain.cpp
+CC = g++ -Wall -Wextra -Werror -std=c++11
 
-all: $(EXECUTE)
+FLAGS =  -L./lib/ -lglfw -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 
-$(EXECUTE): $(OBJ)
-	@mkdir -p '$(@D)'
-	@echo "COMPILING SOURCE $< INTO OBJECT $@"
-	clang++ -std=c++11 $(FLAGS) -o $@ $^ $(GLFW3)
+all: $(NAME)
+#compile GLAD
 
-$(OBJ_DIR)%.o: %.cpp
-	@mkdir -p '$(@D)'
-	clang++ -std=c++11 $(FLAGS) -c -o $@ $<
 
-fclean:
-	@rm -rf $(OBJ_DIR)
-	@rm -rf $(EXEPATH)
+
+$(NAME): fclean
+	@  gcc -c ./glad/src/glad.c -Wall -Wextra -Werror -I ./glad/include
+	@  $(CC) -o snake $(SRC2)  -I include $(FLAGS) glad.o  -I ./glad/include
+
+
+clean:
+	@rm -fr $(NAME)
+
+fclean : clean
+
+re: fclean all

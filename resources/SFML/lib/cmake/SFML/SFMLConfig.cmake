@@ -69,7 +69,7 @@ set(FIND_SFML_PATHS
     $ENV{SFML_ROOT}
     ~/Library/Frameworks
     /Library/Frameworks
-    /goinfre/jdorner/.brew
+    /goinfre/pmotala/.brew
     /usr
     /sw
     /opt/local
