@@ -2,16 +2,16 @@
 # define PLAYER_HPP
 
 # include <string>
-# include <list>
+# include <vector>
 # include "../../2_Game_Control/Input.hpp"
 # include "../Transformation/Transform.hpp"
 
 struct SnakeBody
 {
 	Vector2 Head;
-	std::list <Vector2> Body;//can call Body.push_back() or Body.push_back()
+	std::vector<Vector2> Body;//can call Body.push_back() or Body.push_back()
 	Vector2 Tail;
-}
+};
 
 enum e_CollisionType
 {
@@ -20,7 +20,7 @@ enum e_CollisionType
 	Tail,
 	Obsticle,
 	Pickup
-}
+};
 
 class Player
 {
@@ -35,7 +35,7 @@ class Player
 
 	private:
 		void UpdateSnakeBody();
-		Transform transform;
+		Transform_t transform;
 		SnakeBody snakeBody;
 };
 

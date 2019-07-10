@@ -1,5 +1,5 @@
 #include "class/2_Game_Control/Input.hpp"
-#include "class/3_Game_Classes/Player.hpp"
+#include "class/3_Game_Classes/Player/Player.hpp"
 #include <chrono>
 #include <thread>
 #include <iostream>

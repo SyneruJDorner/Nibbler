@@ -3,12 +3,20 @@
 
 # include <string>
 #include "./Vectors/Vector2.hpp"
-#include "./Direction/Direction.hpp"
 
-struct Transform
+enum e_direction
+{
+	DIR_NUL = -1,
+    Up = 0,
+    Left = 1,
+    Down = 2,
+    Right = 3
+};
+
+struct Transform_t
 {
 	Vector2 Position;
-	Direction Direction;
+	e_direction Direction = DIR_NUL;
 };
 
 #endif
