@@ -7,8 +7,7 @@ int main(int ac, char **av)
 
     (void)av;
     (void)ac;
-    sf::RenderWindow d;
-    d.create(sf::VideoMode(900, 600), "Snake SFML");
+    sf::RenderWindow d(sf::VideoMode(900, 600), "Snake SFML");
     // sf::RenderWindow window(sf::VideoMode(200,200), "Hello World");
     // sf::CircleShape shape(100.f);
     // shape.setPointCount(128);

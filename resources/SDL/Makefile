@@ -6,7 +6,7 @@ EXEPATH = ./Compiled_Application/
 EXECUTE = $(EXEPATH)TestMain
 
 #SDL = -L./lib/ -lSDL2 -lm -liconv -Wl,-framework,OpenGL -Wl,-framework,ForceFeedback -lobjc -Wl,-framework,Cocoa -Wl,-framework,Carbon -Wl,-framework,IOKit -Wl,-framework,CoreAudio -Wl,-framework,AudioToolbox -Wl,-framework,AudioUnit
-SDL = -I./include/SDL2  -L./lib -lSDL2  -lSDL2main 
+SDL = -Iinclude  -Llib -lSDL2  -lSDL2main 
 
 all: $(EXECUTE)
 
