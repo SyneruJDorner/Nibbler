@@ -1,4 +1,4 @@
 # Nibbler
 
 ## INSTALLATION:
-* source setup.sh (This will install all dependancies and graphic libraries.)
+* run 'source setup.sh' (This will install all dependancies and graphic libraries.)
