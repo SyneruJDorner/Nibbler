@@ -1,4 +1,4 @@
 # Nibbler
 
 ## INSTALLATION:
-* scource setup.sh //this will install all dependancies and graphic libraries.
+* source setup.sh (This will install all dependancies and graphic libraries.)
