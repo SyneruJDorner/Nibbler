@@ -68,4 +68,18 @@ echo SETUP: Cloning Glad into GLFW
 cd GLFW
 git clone "$gladRepo"
 
-export DYLD_LIBRARY_PATH=$PWD/resources/GLFW/lib:$PWD/resources/SFML/lib:$PWD/resources/SDL2/lib
+# Setting Library Path
+# export DYLD_LIBRARY_PATH=$PWD/resources/GLFW/lib:$PWD/resources/SFML/lib:$PWD/resources/SDL2/lib
+# env | grep 'DYLD_LIBRARY_PATH'
+
+#PWD - Accesses path from open Terminal
+
+File="$HOME/.zshrc"
+
+if grep -q "DYLD_LIBRARY_PATH" "$File"; then
+    echo PATH ALREADY EXISTS
+else
+    echo 'export DYLD_LIBRARY_PATH=$PWD/resources/GLFW/lib:$PWD/resources/SFML/lib:$PWD/resources/SDL2/lib' >> ~/.zshrc
+fi
+
+exit

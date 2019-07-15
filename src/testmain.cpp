@@ -55,6 +55,11 @@ void updateSDL()
     }
 }
 
+void errorCallback(int thing, const char *str)
+{
+    std::cout << thing << ": " << str << std::endl;
+}
+
 void initOpenGL()
 {
     glfwInit();
@@ -63,7 +68,7 @@ void initOpenGL()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwSetErrorCallback([] (int thing, const char *str) { std::cout << thing << ": " << str << std::endl;});
+    glfwSetErrorCallback(errorCallback);
 
     GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
     if (window == NULL)

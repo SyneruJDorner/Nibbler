@@ -24,8 +24,9 @@ $(EXECUTE): $(OBJ)
 
 $(OBJ_DIR)%.o: %.cpp
 	@ mkdir -p '$(@D)'
-	clang++ $(FLAGS) -c -o $@ $<
+	clang++ $(FLAGS) -I./resources/GLFW/glad/include -I./resources/GLFW/include -I./resources/SFML/include -I./resources/SDL2/include -c -o $@ $<
 
 fclean:
 	@ rm -rf $(OBJ_DIR)
 	@ rm -rf $(EXEPATH)
+	@ rm -rf glad.o
