@@ -18,12 +18,45 @@ void Update()
     while (1)
     {
         KeyCode keycode = Input::instance->DetermineInputs();
-        Player::instance->PlayerMovement(keycode);
         //Draw();
         t += std::chrono::milliseconds(33);
         std::this_thread::sleep_until(t);
     }
 }
+
+/*
+Should look something like this
+............................................
+while (...)
+{
+treatment Events ();
+Update Game Data ();
+Update Display ();
+}
+............................................
+*/
+
+/*
+Inferface design must resemble bellow
+............................................
+class INibblerDisplay
+{
+public:
+virtual void init(...) = 0;
+virtual void getEvents(...) = 0;
+virtual void updateGameData(...) = 0;
+virtual void refreshDisplay(...) = 0;
+virtual void stop(...) = 0;
+};
+
+//Entry points
+extern "C"
+{
+    //These should be short and straight to the point
+    INibblerDisplay* getDisplayModule() { return new NibblerDisplayOpenGL(); }
+}
+............................................
+*/
 
 int	main()
 {
