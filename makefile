@@ -30,3 +30,4 @@ fclean:
 	@ rm -rf $(OBJ_DIR)
 	@ rm -rf $(EXEPATH)
 	@ rm -rf glad.o
+	@ rm -rf ./resources
