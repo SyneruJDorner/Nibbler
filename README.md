@@ -5,3 +5,5 @@
   
 ## Installation:
 * Run 'source setup.sh' (This will install all dependancies and graphic libraries.)
+* Open a New Terminal and run with ./Compiled_Application/TEST #num
+* #num(num between 0 and 2, each representing a graphic library).

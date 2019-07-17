@@ -104,7 +104,7 @@ void updateSFML(sf::RenderWindow *window)
     }
 }
 
-int main(void)
+/*int main(void)
 {  
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
@@ -129,3 +129,4 @@ int main(void)
     // Clean up
     SDL_Quit();
 }
+*/

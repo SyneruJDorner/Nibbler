@@ -40,7 +40,6 @@ fi
 echo SETUP: Installation of Graphics Libraries Completed Successfully.
 
 #Creating Resources Folder
-mkdir resources
 cd resources
 
 #Create Resources Folder.
@@ -67,6 +66,7 @@ gladRepo="https://github.com/EIESSENHEIM/glad.git"
 echo SETUP: Cloning Glad into GLFW
 cd GLFW
 git clone "$gladRepo"
+cd ..
 
 # Setting Library Path
 # export DYLD_LIBRARY_PATH=$PWD/resources/GLFW/lib:$PWD/resources/SFML/lib:$PWD/resources/SDL2/lib
@@ -79,7 +79,11 @@ File="$HOME/.zshrc"
 if grep -q "DYLD_LIBRARY_PATH" "$File"; then
     echo PATH ALREADY EXISTS
 else
-    echo 'export DYLD_LIBRARY_PATH=$PWD/resources/GLFW/lib:$PWD/resources/SFML/lib:$PWD/resources/SDL2/lib' >> ~/.zshrc
+    echo 'export DYLD_LIBRARY_PATH=$PWD/resources/GLFW/lib:$PWD/resources/SFML/lib:$PWD/resources/SDL2/lib:$PWD/Libraries' >> ~/.zshrc
 fi
+
+cd ..
+echo $PWD
+make
 
 exit
