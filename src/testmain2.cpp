@@ -2,9 +2,25 @@
 #include "../resources/Graphic_Libraries/libSDL2/LibSDL2.hpp"
 #include "../resources/Graphic_Libraries/libSFML/LibSFML.hpp"
 #include <dlfcn.h>
+/* 
+enum ApplicationState
+{
+    Running,
+    Quit,
+    Restart,
+    ChangeLib
+};
+
+class ParseData
+{
+    public:
+        ApplicationState applicationState = Running;
+};
+
 
 int main(int ac, char** av)
 {
+    ParseData data = ParseData();
     const char * libs[] = { "../libraries/libGLFW.so",
                             "../libraries/libSDL2.so",
                             "../libraries/libSFML.so"};
@@ -40,8 +56,10 @@ int main(int ac, char** av)
 
         // use the class
         lib->init(800, 600);
-
-        while (1)
+        
+        std::string command;
+        
+        while (data.applicationState == Running)
         {
             lib->events();
         }
@@ -54,3 +72,4 @@ int main(int ac, char** av)
     }
     
 }
+*/

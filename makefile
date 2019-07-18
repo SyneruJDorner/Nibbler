@@ -1,5 +1,5 @@
 FLAGS = -Wall -Werror -Wextra
-SRC = ./src/testmain2.cpp#$(shell find . -name *.cpp)
+SRC = ./src/testmain3.cpp #$(shell find . -name *.cpp)
 OBJ_DIR = ./obj/
 OBJ := $(SRC:%.cpp=$(OBJ_DIR)%.o)
 EXEPATH = ./Executable/

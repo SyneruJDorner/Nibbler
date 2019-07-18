@@ -16,7 +16,7 @@ enum e_direction
 struct Transform_t
 {
 	Vector2 Position;
-	e_direction Direction = DIR_NUL;
+	e_direction Direction;
 };
 
 #endif

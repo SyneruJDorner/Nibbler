@@ -1,4 +1,3 @@
-
 #include "LibSDL2.hpp"
 
 extern "C" IGraphicsLib *createLib()
