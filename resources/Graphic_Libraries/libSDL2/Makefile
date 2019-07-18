@@ -3,7 +3,7 @@ SRC = 	LibSDL2.cpp \
 		../utils/Exceptions/GraphicLibraryExceptions.cpp
 OBJ_DIR = ./obj/
 OBJ := $(SRC:%.cpp=$(OBJ_DIR)%.o)
-EXEPATH = ../../../Libraries/
+EXEPATH = ../../../libraries/
 EXECUTE = $(EXEPATH)libSDL2.so
 
 SDL_INCLUDE = -I../../SDL2/include

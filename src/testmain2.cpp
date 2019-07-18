@@ -5,9 +5,9 @@
 
 int main(int ac, char** av)
 {
-    const char * libs[] = { "../Libraries/libGLFW.so",
-                            "../Libraries/libSDL2.so",
-                            "../Libraries/libSFML.so"};
+    const char * libs[] = { "../libraries/libGLFW.so",
+                            "../libraries/libSDL2.so",
+                            "../libraries/libSFML.so"};
     if (ac > 1)
     {
         // load the triangle library

@@ -9,7 +9,7 @@ else
     brew update
 fi
 
-#Install Graphics Libraries
+#Install Graphics libraries
 #Install SDL2
 echo SETUP: Installing SDL2
 if brew ls --versions sdl2 > /dev/null; then
@@ -37,7 +37,7 @@ else
     echo SETUP: SFML Has been Installed.
 fi
 
-echo SETUP: Installation of Graphics Libraries Completed Successfully.
+echo SETUP: Installation of Graphics libraries Completed Successfully.
 
 #Creating Resources Folder
 cd resources
@@ -48,7 +48,7 @@ mkdir SFML
 mkdir GLFW
 
 #Copying Over Library and Includes
-echo SETUP: Copying Over Libraries and Includes
+echo SETUP: Copying Over libraries and Includes
 cd SDL2
 cp -rf ~/.brew/Cellar/sdl2/2.0.9_1/lib ~/.brew/Cellar/sdl2/2.0.9_1/include .
 cd ..
@@ -79,7 +79,7 @@ File="$HOME/.zshrc"
 if grep -q "DYLD_LIBRARY_PATH" "$File"; then
     echo PATH ALREADY EXISTS
 else
-    echo 'export DYLD_LIBRARY_PATH=$PWD/resources/GLFW/lib:$PWD/resources/SFML/lib:$PWD/resources/SDL2/lib:$PWD/Libraries' >> ~/.zshrc
+    echo 'export DYLD_LIBRARY_PATH=$PWD/resources/GLFW/lib:$PWD/resources/SFML/lib:$PWD/resources/SDL2/lib:$PWD/libraries' >> ~/.zshrc
 fi
 
 cd ..

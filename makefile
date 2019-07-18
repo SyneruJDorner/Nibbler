@@ -2,10 +2,10 @@ FLAGS = -Wall -Werror -Wextra
 SRC = ./src/testmain2.cpp#$(shell find . -name *.cpp)
 OBJ_DIR = ./obj/
 OBJ := $(SRC:%.cpp=$(OBJ_DIR)%.o)
-EXEPATH = ./Compiled_Application/
+EXEPATH = ./Executable/
 EXECUTE = $(EXEPATH)TEST
 
-GLFW_FLAGS = -L./Libraries/ -I./resources/GLFW/glad/include/ -I./resources/GLFW/include 
+GLFW_FLAGS = -L./libraries/ -I./resources/GLFW/glad/include/ -I./resources/GLFW/include 
 
 all: $(EXECUTE)
 
@@ -28,5 +28,5 @@ fclean:
 	@ rm -rf ./resources/GLFW
 	@ rm -rf ./resources/SFML
 	@ rm -rf ./resources/SDL2
-	@ rm -rf ./Libraries
+	@ rm -rf ./libraries
 	. ./FCleanLib.sh

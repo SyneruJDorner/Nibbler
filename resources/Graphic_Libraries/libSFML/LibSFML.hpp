@@ -2,7 +2,6 @@
 #define GLFW_LIB_H
 
     #include "../IGraphicsLib.hpp"
-    #include "../../../src/structs/utils/Vector2.hpp"
     #include <iostream>
     #include "../utils/Exceptions/GraphicLibraryExceptions.hpp"
 

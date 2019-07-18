@@ -3,7 +3,7 @@ SRC = 	LibGLFW.cpp \
 		../utils/Exceptions/GraphicLibraryExceptions.cpp
 OBJ_DIR = ./obj/
 OBJ := $(SRC:%.cpp=$(OBJ_DIR)%.o)
-EXEPATH = ../../../Libraries/
+EXEPATH = ../../../libraries/
 EXECUTE = $(EXEPATH)libGLFW.so
 
 GLAD_INCLUDE = -I../../GLFW/glad/include
