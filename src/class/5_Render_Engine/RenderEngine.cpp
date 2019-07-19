@@ -1,13 +1,14 @@
 #include "RenderEngine.hpp"
 
-RenderEngine::RenderEngine(std::string *dir, int width, int height, int activeLib)
+RenderEngine::RenderEngine(std::string libDir[], int width, int height, int activeLib)
 {
+
     for (int i = 0; i < 3; i++)
-        this->libDirectories[i] = dir[i];
+        this->libDirectories[i] = libDir[i];
 
     this->width = width;
     this->height = height;
-    this->activeLibNum = activeLib;
+    this->activeLibNum = -1;
     setGraphicLib(activeLib);
 }
 
@@ -30,9 +31,9 @@ RenderEngine &RenderEngine::operator=(RenderEngine const &other)
 }
 
 
-IGraphicsLib &RenderEngine::getGraphicLib()
+IGraphicsLib *RenderEngine::getGraphicLib()
 {
-    return *this->activeLib;
+    return this->activeLib;
 }
 
 void RenderEngine::setGraphicLib(int libNumber)
@@ -55,7 +56,7 @@ void RenderEngine::setGraphicLib(int libNumber)
         dlerror();
 
         //Load Symbols
-        this->createLib = reinterpret_cast<createLib_t *>(dlsym(this->graphicLib, "createLib"));
+        this->createLib = (createLib_t *) (dlsym(this->graphicLib, "createLib"));
         this->dlsym_error = dlerror();
 
         if (dlsym_error) {
@@ -64,7 +65,7 @@ void RenderEngine::setGraphicLib(int libNumber)
             return ;
         }
 
-        this->destroyLib = reinterpret_cast<destroyLib_t *>(dlsym(this->graphicLib, "destroyLib"));
+        this->destroyLib = (destroyLib_t *) (dlsym(this->graphicLib, "destroyLib"));
         this->dlsym_error = dlerror();
 
         if (dlsym_error) {
@@ -75,6 +76,7 @@ void RenderEngine::setGraphicLib(int libNumber)
 
         this->activeLib = this->createLib();
         this->activeLib->init(this->width, this->height);
+        this->activeLibNum = libNumber;
     }
 }
 

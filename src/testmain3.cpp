@@ -1,7 +1,7 @@
 
-#include "class/5_Render_Engine/RenderEngine.hpp"
+#include "./class/5_Render_Engine/RenderEngine.hpp"
 
-int main(int ac, char** av)
+int main()
 {
     std::string libs[] = {
         "../libraries/libGLFW.so",
@@ -9,12 +9,12 @@ int main(int ac, char** av)
         "../libraries/libSFML.so"
     };
 
-    RenderEngine * engine = new RenderEngine(libs, 800, 600, 0);
+    RenderEngine * engine = new RenderEngine(libs, 800, 600, 2);
 
     std::string command;
     while (1)
     {
-        engine->getGraphicLib().events();
+        engine->getGraphicLib()->events();
 
         if (std::getline(std::cin, command))
         {

@@ -82,8 +82,4 @@ else
     echo 'export DYLD_LIBRARY_PATH=$PWD/resources/GLFW/lib:$PWD/resources/SFML/lib:$PWD/resources/SDL2/lib:$PWD/libraries' >> ~/.zshrc
 fi
 
-cd ..
-echo $PWD
-make
-
 exit

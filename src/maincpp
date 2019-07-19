@@ -59,11 +59,11 @@ void Update()
 }
 
 
-int	main()
+/* int	main()
 {
     Init();
     Update();
 
        
     return 0;
-}
+}*/
