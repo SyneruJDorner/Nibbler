@@ -21,10 +21,11 @@
         LibGLFW(const LibGLFW &other);
         LibGLFW *operator=(const LibGLFW &other);
 
-        void init(int width, int height);
+        void init(int width, int height, std::string title);
         void events();
         void updateDisplay();
         void draw(Vector2 point);
+        void terminateWindow();
     };
 
     extern "C" IGraphicsLib *createLib();

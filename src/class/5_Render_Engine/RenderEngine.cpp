@@ -75,7 +75,7 @@ void RenderEngine::setGraphicLib(int libNumber)
         }
 
         this->activeLib = this->createLib();
-        this->activeLib->init(this->width, this->height);
+        this->activeLib->init(this->width, this->height, "Nibbler");
         this->activeLibNum = libNumber;
     }
 }

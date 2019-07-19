@@ -19,10 +19,12 @@
         LibSDL2(const LibSDL2 &other);
         LibSDL2 *operator=(const LibSDL2 &other);
 
-        void init(int width, int height);
+        void init(int width, int height, std::string title);
         void events();
         void updateDisplay();
         void draw(Vector2 point);
+        void terminateWindow();
+
     };
 
     extern "C" IGraphicsLib *createLib();

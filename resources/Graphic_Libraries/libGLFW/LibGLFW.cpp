@@ -8,6 +8,7 @@ extern "C" IGraphicsLib *createLib()
 
 extern "C" void destroyLib(IGraphicsLib* instance)
 {
+    instance->terminateWindow();
     delete instance;
 }
 
@@ -33,7 +34,7 @@ LibGLFW *LibGLFW::operator=(const LibGLFW &other)
     return this;
 }
 
-void LibGLFW::init(int width, int height)
+void LibGLFW::init(int width, int height, std::string title)
 {
     glfwInit();
     glfwWindowHint(GLFW_SAMPLES, 4); 
@@ -45,7 +46,7 @@ void LibGLFW::init(int width, int height)
         std::cout << thing << ": " << str << std::endl;
     });
 
-    this->window = glfwCreateWindow(width, height, "Nibbler", NULL, NULL);
+    this->window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
     
     if (window == NULL)
     {
@@ -70,5 +71,12 @@ void LibGLFW::updateDisplay()
 void LibGLFW::draw(Vector2 point)
 {
     (void)point;
+    return ;
+}
+
+void LibGLFW::terminateWindow()
+{
+    glfwDestroyWindow(this->window);
+    glfwTerminate();
     return ;
 }

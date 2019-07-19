@@ -7,6 +7,7 @@ extern "C" IGraphicsLib *createLib()
 
 extern "C" void destroyLib(IGraphicsLib* instance)
 {
+    instance->terminateWindow();
     delete instance;
 }
 
@@ -31,27 +32,22 @@ LibSFML *LibSFML::operator=(const LibSFML &other)
     return this;
 }
 
-void LibSFML::init(int width, int height)
+void LibSFML::init(int width, int height, std::string title)
 {
-    this->window.create(sf::VideoMode(width, height), "SFML works!");
+    this->window = new sf::RenderWindow();
+    this->window->create(sf::VideoMode(width, height), title.c_str());
 }
 
 void LibSFML::events()
 {
-    this->window.clear();
+    this->window->clear();
     sf::Event ev;
-    this->window.pollEvent(ev);
-    if (ev.type == sf::Event::KeyPressed) {
-        switch (ev.key.code) {
-        
-            case sf::Keyboard::Escape:
-                this->window.close();
-                break;                
-            default:
-                break;
-        }
+    this->window->pollEvent(ev);
+    {
+        if(ev.type == sf::Event::Closed || ev.key.code == sf::Keyboard::Escape)
+            this->window->close();
     }
-    this->window.display();
+    this->window->display();
 }
 
 void LibSFML::updateDisplay()
@@ -62,5 +58,12 @@ void LibSFML::updateDisplay()
 void LibSFML::draw(Vector2 point)
 {
     (void)point;
+    return ;
+}
+
+void LibSFML::terminateWindow()
+{
+    this->window->close();
+    delete this->window;
     return ;
 }

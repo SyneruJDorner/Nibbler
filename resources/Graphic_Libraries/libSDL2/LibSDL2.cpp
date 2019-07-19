@@ -7,6 +7,7 @@ extern "C" IGraphicsLib *createLib()
 
 extern "C" void destroyLib(IGraphicsLib* instance)
 {
+    instance->terminateWindow();
     delete instance;
 }
 
@@ -32,7 +33,7 @@ LibSDL2 *LibSDL2::operator=(const LibSDL2 &other)
     return this;
 }
 
-void LibSDL2::init(int width, int height)
+void LibSDL2::init(int width, int height, std::string title)
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         throw GraphicLibraryExceptions::InitFailedException();
@@ -40,7 +41,7 @@ void LibSDL2::init(int width, int height)
     
     // Create an application window with the following settings:
     this->window = SDL_CreateWindow(
-        "An SDL2 window",       // window title
+        title.c_str(),       // window title
         0,                      // initial x position
         0,                      // initial y position
         width,                  // width, in pixels
@@ -57,6 +58,8 @@ void LibSDL2::init(int width, int height)
     if(!this->renderer) {
         throw GraphicLibraryExceptions::RenderInitFailed();
     }
+
+    SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
 }
 
 void LibSDL2::events()
@@ -79,5 +82,13 @@ void LibSDL2::updateDisplay()
 void LibSDL2::draw(Vector2 point)
 {
     (void)point;
+    return ;
+}
+
+void LibSDL2::terminateWindow()
+{
+    SDL_DestroyWindow(this->window);
+    SDL_DestroyRenderer(this->renderer);
+    SDL_Quit();
     return ;
 }

@@ -11,17 +11,18 @@
     class LibSFML: public IGraphicsLib
     {
     private:
-        sf::RenderWindow window;
+        sf::RenderWindow *window;
     public:
         LibSFML(void);
         ~LibSFML(void);
         LibSFML(const LibSFML &other);
         LibSFML *operator=(const LibSFML &other);
 
-        void init(int width, int height);
+        void init(int width, int height, std::string title);
         void events();
         void updateDisplay();
         void draw(Vector2 point);
+        void terminateWindow();
     };
 
     extern "C" IGraphicsLib *createLib();
