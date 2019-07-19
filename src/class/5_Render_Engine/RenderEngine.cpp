@@ -1,7 +1,9 @@
 #include "RenderEngine.hpp"
 
-RenderEngine::RenderEngine(std::string libDir[], int width, int height, int activeLib)
+RenderEngine::RenderEngine(std::string *libDir, int width, int height, int activeLib)
 {
+
+    this->libDirectories = new std::string[3];
 
     for (int i = 0; i < 3; i++)
         this->libDirectories[i] = libDir[i];
@@ -21,6 +23,7 @@ RenderEngine::~RenderEngine()
 {
     delete this->dlsym_error;
 	delete this->activeLib;
+    delete [] libDirectories;
 }
 
 
@@ -31,7 +34,7 @@ RenderEngine &RenderEngine::operator=(RenderEngine const &other)
 }
 
 
-IGraphicsLib *RenderEngine::getGraphicLib()
+IGraphicsLib *RenderEngine::getGraphicLib() const
 {
     return this->activeLib;
 }
@@ -87,6 +90,35 @@ void RenderEngine::resetGraphicLib()
 
 void RenderEngine::changeGraphicLib(int libNumber)
 {
-    resetGraphicLib();
-    setGraphicLib(libNumber);
+    if (libNumber != this->activeLibNum)
+    {
+        resetGraphicLib();
+        setGraphicLib(libNumber);
+    }
+}
+
+int RenderEngine::getWidth() const
+{
+    return this->width;
+}
+
+int RenderEngine::getHeight() const
+{
+    return this->height;
+}
+
+int RenderEngine::getActiveLibNum() const
+{
+    return this->activeLibNum;
+}
+
+void RenderEngine::setLibDirectories(std::string libDir[])
+{
+    for (int i = 0; i < 3; i++)
+        this->libDirectories[i] = libDir[i];
+}
+
+std::string *RenderEngine::getLibDirectories() const
+{
+    return this->libDirectories;
 }

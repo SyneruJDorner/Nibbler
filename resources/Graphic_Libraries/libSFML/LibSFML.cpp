@@ -38,7 +38,7 @@ void LibSFML::init(int width, int height, std::string title)
     this->window->create(sf::VideoMode(width, height), title.c_str());
 }
 
-void LibSFML::events()
+e_GraphicLibInput LibSFML::events()
 {
     this->window->clear();
     sf::Event ev;
@@ -46,8 +46,23 @@ void LibSFML::events()
     {
         if(ev.type == sf::Event::Closed || ev.key.code == sf::Keyboard::Escape)
             this->window->close();
+        else
+        {
+            switch (ev.key.code)
+            {
+                case sf::Keyboard::F1:
+                    return GLFW;
+                case sf::Keyboard::F2:
+                    return SDL2;
+                case sf::Keyboard::F3:
+                    return SFML;
+                default:
+                    break;
+            }
+        }
     }
     this->window->display();
+    return STD;
 }
 
 void LibSFML::updateDisplay()

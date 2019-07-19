@@ -19,8 +19,8 @@
         LibSDL2(const LibSDL2 &other);
         LibSDL2 *operator=(const LibSDL2 &other);
 
-        void init(int width, int height, std::string title);
-        void events();
+        e_GraphicLib init(int width, int height, std::string title);
+        e_GraphicLibInput events();
         void updateDisplay();
         void draw(Vector2 point);
         void terminateWindow();

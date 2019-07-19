@@ -58,9 +58,10 @@ void LibGLFW::init(int width, int height, std::string title)
     gladLoadGLLoader((GLADloadproc)(glfwGetProcAddress));
 }
 
-void LibGLFW::events()
+e_GraphicLibInput LibGLFW::events()
 {
     glfwPollEvents();
+    return STD;
 }
 
 void LibGLFW::updateDisplay()

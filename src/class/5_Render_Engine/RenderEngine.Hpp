@@ -11,7 +11,7 @@
 class RenderEngine
 {
 	private:
-		std::string libDirectories[3];
+		std::string *libDirectories;
 		void *graphicLib;
 		char* dlsym_error;
 		createLib_t *createLib;
@@ -22,15 +22,23 @@ class RenderEngine
 		int activeLibNum;
 
 	public:
-		RenderEngine(std::string libDir[], int width, int height, int activeLib);
+		RenderEngine(std::string *libDir, int width, int height, int activeLib);
 		RenderEngine(RenderEngine const &obj);
 		~RenderEngine();
 		RenderEngine &operator=(RenderEngine const &other);
 		
-		IGraphicsLib *getGraphicLib();
+		IGraphicsLib *getGraphicLib() const;
 		void setGraphicLib(int libNumber);
 		void resetGraphicLib();
 		void changeGraphicLib(int libNumber);
+
+		int getWidth() const;
+		int getHeight() const;
+
+		int getActiveLibNum() const;
+
+		void setLibDirectories(std::string libDir[]);
+		std::string *getLibDirectories() const;
 };
 
 #endif

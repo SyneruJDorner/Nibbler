@@ -62,7 +62,7 @@ void LibSDL2::init(int width, int height, std::string title)
     SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
 }
 
-void LibSDL2::events()
+e_GraphicLibInput LibSDL2::events()
 {
     SDL_Event event;
     if (SDL_PollEvent( & event))
@@ -71,7 +71,30 @@ void LibSDL2::events()
         {
             SDL_Quit();
         }
+        if (event.type == SDL_KEYDOWN)
+        {
+            switch(event.key.keysym.sym)
+            {
+                case SDL_SCANCODE_F1:
+                    return GLFW;
+                case SDL_SCANCODE_F2:
+                    return STD;
+                case SDL_SCANCODE_F3:
+                    return SFML;
+                case SDL_SCANCODE_A:
+                    return LEFT;
+                case SDL_SCANCODE_D:
+                    return RIGHT;
+                case SDL_SCANCODE_W:
+                    return UP;
+                case SDL_SCANCODE_S:
+                    return DOWN;
+                default:
+                    break;
+            }
+        }
     }
+    return STD;
 }
 
 void LibSDL2::updateDisplay()

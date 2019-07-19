@@ -22,7 +22,7 @@
         LibGLFW *operator=(const LibGLFW &other);
 
         void init(int width, int height, std::string title);
-        void events();
+        e_GraphicLibInput events();
         void updateDisplay();
         void draw(Vector2 point);
         void terminateWindow();
