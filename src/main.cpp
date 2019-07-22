@@ -77,6 +77,9 @@ void Update(GameManager *manager)
 
 int	main(int ac, char **av)
 {
+    (void)ac;
+    (void)av;
+    /*
     if (ac > 1 && ac < 4)
     {
         try
@@ -107,6 +110,7 @@ int	main(int ac, char **av)
     {
         std::cerr << "ERROR: Incorrect Parameters" << std::endl;
     }
+    */
 
     return 0;
 }
