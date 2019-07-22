@@ -1,5 +1,5 @@
-#ifndef GLFW_LIB_H
-# define GLFW_LIB_H
+#ifndef SDL2_LIB_H
+# define SDL2_LIB_H
 
     #include "../IGraphicsLib.hpp"
     #include <iostream>
@@ -19,7 +19,8 @@
         LibSDL2(const LibSDL2 &other);
         LibSDL2 *operator=(const LibSDL2 &other);
 
-        e_GraphicLib init(int width, int height, std::string title);
+        //Use to be e_GraphicLib init(int width, int height, std::string title);
+        void init(int width, int height, std::string title);
         e_GraphicLibInput events();
         void updateDisplay();
         void draw(Vector2 point);
@@ -30,4 +31,4 @@
     extern "C" IGraphicsLib *createLib();
     extern "C" void destroyLib(IGraphicsLib* instance);
 
-#endif // !GLFW_LIB_H
+#endif // !SDL2_LIB_H

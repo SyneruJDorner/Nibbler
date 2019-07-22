@@ -1,5 +1,5 @@
-#ifndef GLFW_LIB_H
-#define GLFW_LIB_H
+#ifndef SFML_LIB_H
+#define SFML_LIB_H
 
     #include "../IGraphicsLib.hpp"
     #include <iostream>

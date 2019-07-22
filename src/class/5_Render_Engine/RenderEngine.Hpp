@@ -2,11 +2,12 @@
 # define RENDERENGINE_HPP
 
 # include <string>
-#include "../../../resources/Graphic_Libraries/libGLFW/LibGLFW.hpp"
-#include "../../../resources/Graphic_Libraries/libSDL2/LibSDL2.hpp"
-#include "../../../resources/Graphic_Libraries/libSFML/LibSFML.hpp"
-#include "../../structs/Exceptions/RenderEngineExceptions.hpp"
-#include <dlfcn.h>
+# include "../../../resources/Graphic_Libraries/libGLFW/LibGLFW.hpp"
+# include "../../../resources/Graphic_Libraries/libSDL2/LibSDL2.hpp"
+//# include "../../../resources/Graphic_Libraries/libSDL2/LibSDL2.hpp"
+# include "../../../resources/Graphic_Libraries/libSFML/LibSFML.hpp"
+# include "../../structs/Exceptions/RenderEngineExceptions.hpp"
+# include <dlfcn.h>
 
 class RenderEngine
 {
