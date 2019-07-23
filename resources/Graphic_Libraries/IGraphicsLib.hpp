@@ -13,7 +13,8 @@
         UP = 4,
         DOWN,
         LEFT,
-        RIGHT
+        RIGHT,
+        ESCAPE = 10
     };
 
     class IGraphicsLib

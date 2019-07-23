@@ -52,9 +52,10 @@ void Update(GameManager *manager)
 
     while (1)
     {
-        manager->getRenderEngine()->getGraphicLib()->events();
-        KeyCode keycode = Input::instance->DetermineInputs();
+        e_GraphicLibInput output = manager->getRenderEngine()->getGraphicLib()->events();
+        //KeyCode keycode = Input::instance->DetermineInputs();
         
+        /*
         switch (keycode)
         {
             case Z:
@@ -66,6 +67,24 @@ void Update(GameManager *manager)
             case C:
                 manager->getRenderEngine()->changeGraphicLib(2);
                 break;
+            default:
+                break;
+        }
+        */
+
+        switch (output)
+        {
+            case GLFW:
+                manager->getRenderEngine()->changeGraphicLib(GLFW);
+                break;
+            case SDL2:
+                manager->getRenderEngine()->changeGraphicLib(SDL2);
+                break;
+            case SFML:
+                manager->getRenderEngine()->changeGraphicLib(SFML);
+                break;
+            case ESCAPE:
+                return ;
             default:
                 break;
         }

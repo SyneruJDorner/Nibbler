@@ -12,7 +12,7 @@ GameManager::GameManager()
 
 GameManager::GameManager(std::string libsDir[], int width, int height)
 {
-    this->renderEngine = new RenderEngine(libsDir, width, height, 0);
+    this->renderEngine = new RenderEngine(libsDir, width, height, 1);
 }
 
 GameManager::GameManager(GameManager &obj)

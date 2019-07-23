@@ -69,26 +69,37 @@ e_GraphicLibInput LibSDL2::events()
     {
         if (event.type == SDL_QUIT)
         {
+            SDL_DestroyWindow(this->window);
+            SDL_DestroyRenderer(this->renderer);
             SDL_Quit();
         }
         if (event.type == SDL_KEYDOWN)
         {
             switch(event.key.keysym.sym)
             {
-                case SDL_SCANCODE_F1:
+                case SDLK_F1:
                     return GLFW;
-                case SDL_SCANCODE_F2:
-                    return STD;
-                case SDL_SCANCODE_F3:
+                case SDLK_F2:
+                    return SDL2;
+                case SDLK_F3:
                     return SFML;
-                case SDL_SCANCODE_A:
+                case SDLK_a:
+                    std::cout << "Event SDL2 key A" << std::endl;
                     return LEFT;
-                case SDL_SCANCODE_D:
+                case SDLK_d:
+                    std::cout << "Event SDL2 key D" << std::endl;
                     return RIGHT;
-                case SDL_SCANCODE_W:
+                case SDLK_w:
+                    std::cout << "Event SDL2 key W" << std::endl;
                     return UP;
-                case SDL_SCANCODE_S:
+                case SDLK_s:
+                    std::cout << "Event SDL2 key S" << std::endl;
                     return DOWN;
+                case SDLK_ESCAPE:
+                    SDL_DestroyWindow(this->window);
+                    SDL_DestroyRenderer(this->renderer);
+                    SDL_Quit();
+                    return ESCAPE;
                 default:
                     break;
             }

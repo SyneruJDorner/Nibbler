@@ -47,7 +47,7 @@ void RenderEngine::setGraphicLib(int libNumber)
     if (libNumber != this->activeLibNum)
     {
         //Load The Library
-        this->graphicLib = dlopen(this->libDirectories[libNumber].c_str(), RTLD_LAZY);
+        this->graphicLib = dlopen(this->libDirectories[libNumber].c_str(), RTLD_LAZY | RTLD_LOCAL);
         
         if (!graphicLib) {
             // std::cerr << "Cannot load library: " << dlerror() << '\n';

@@ -40,15 +40,17 @@ void LibSFML::init(int width, int height, std::string title)
 
 e_GraphicLibInput LibSFML::events()
 {
-    this->window->clear();
-    sf::Event ev;
-    this->window->pollEvent(ev);
+    sf::Event event;
+    if (this->window->pollEvent(event))
     {
-        if(ev.type == sf::Event::Closed || ev.key.code == sf::Keyboard::Escape)
-            this->window->close();
-        else
+        if(event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
         {
-            switch (ev.key.code)
+            this->window->close();
+            return ESCAPE;
+        }
+        else if (event.type == sf::Event::KeyPressed)
+        {
+            switch (event.key.code)
             {
                 case sf::Keyboard::F1:
                     return GLFW;
@@ -56,17 +58,35 @@ e_GraphicLibInput LibSFML::events()
                     return SDL2;
                 case sf::Keyboard::F3:
                     return SFML;
+                case sf::Keyboard::W:
+                    std::cout << "Event SFML key W" << std::endl;
+                    return UP;
+                    break;
+                case sf::Keyboard::S:
+                    std::cout << "Event SFML key S" << std::endl;
+                    return DOWN;
+                    break;
+                case sf::Keyboard::A:
+                    std::cout << "Event SFML key A" << std::endl;
+                    return LEFT;
+                    break;
+                case sf::Keyboard::D:
+                    std::cout << "Event SFML key D" << std::endl;
+                    return RIGHT;
+                    break;
                 default:
                     break;
             }
         }
     }
-    this->window->display();
+
     return STD;
 }
 
 void LibSFML::updateDisplay()
 {
+    this->window->clear();
+    this->window->display();
     return ;
 }
 

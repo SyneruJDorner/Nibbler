@@ -15,6 +15,7 @@
     {
     private:
         GLFWwindow* window;
+        static e_GraphicLibInput status;
     public:
         LibGLFW(void);
         ~LibGLFW(void);
@@ -26,6 +27,8 @@
         void updateDisplay();
         void draw(Vector2 point);
         void terminateWindow();
+
+        static void keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
     };
 
     extern "C" IGraphicsLib *createLib();
