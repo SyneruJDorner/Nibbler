@@ -14,7 +14,7 @@ RenderEngine::RenderEngine(std::string *libDir, int width, int height, int activ
     setGraphicLib(activeLib);
 }
 
-RenderEngine::RenderEngine(const RenderEngine &obj)
+RenderEngine::RenderEngine(RenderEngine const &obj)
 {
     *this = obj;
 }
@@ -23,7 +23,7 @@ RenderEngine::~RenderEngine()
 {
     delete this->dlsym_error;
 	delete this->activeLib;
-    delete [] libDirectories;
+    delete [] this->libDirectories;
 }
 
 
