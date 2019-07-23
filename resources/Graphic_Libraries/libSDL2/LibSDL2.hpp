@@ -1,5 +1,5 @@
-#ifndef GLFW_LIB_H
-# define GLFW_LIB_H
+#ifndef SDL2_LIB_H
+# define SDL2_LIB_H
 
     #include "../IGraphicsLib.hpp"
     #include <iostream>
@@ -30,4 +30,4 @@
     extern "C" IGraphicsLib *createLib();
     extern "C" void destroyLib(IGraphicsLib* instance);
 
-#endif // !GLFW_LIB_H
+#endif // !SDL2_LIB_H

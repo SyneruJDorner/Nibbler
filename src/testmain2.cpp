@@ -1,7 +1,8 @@
-#include "../resources/Graphic_Libraries/libGLFW/LibGLFW.hpp"
-#include "../resources/Graphic_Libraries/libSDL2/LibSDL2.hpp"
-#include "../resources/Graphic_Libraries/libSFML/LibSFML.hpp"
-#include <dlfcn.h>
+//#include "../resources/Graphic_Libraries/libGLFW/LibGLFW.hpp"
+//#include "../resources/Graphic_Libraries/libSDL2/LibSDL2.hpp"
+//#include "../resources/Graphic_Libraries/libSFML/LibSFML.hpp"
+//#include <dlfcn.h>
+
 /* 
 enum ApplicationState
 {
