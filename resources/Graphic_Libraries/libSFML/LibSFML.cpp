@@ -85,14 +85,22 @@ e_GraphicLibInput LibSFML::events()
 
 void LibSFML::updateDisplay()
 {
-    this->window->clear();
     this->window->display();
     return ;
 }
 
 void LibSFML::draw(Vector2 point)
 {
-    (void)point;
+    if (point.x > 0 && point.y > 0)
+    {
+        int blocksize = 30;
+        sf::Vector2f size(blocksize, blocksize);
+        sf::RectangleShape rect(size);
+        rect.setFillColor(sf::Color::White);
+        rect.setPosition(sf::Vector2f((point.x * 10) - (blocksize/2), (point.y * 10) - (blocksize/2)));
+        this->window->draw(rect);
+    }
+    
     return ;
 }
 

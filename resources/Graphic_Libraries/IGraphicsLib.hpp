@@ -27,6 +27,7 @@
         virtual void updateDisplay() = 0;
         virtual void draw(Vector2 point) = 0;
         virtual void terminateWindow() = 0;
+
     };
 
     typedef IGraphicsLib* createLib_t();

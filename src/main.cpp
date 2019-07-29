@@ -89,6 +89,14 @@ void Update(GameManager *manager)
                 break;
         }
 
+        Vector2 point = Vector2();
+
+        point.x = (manager->getRenderEngine()->getWidth()/10)/2;
+        point.y = (manager->getRenderEngine()->getHeight()/10)/2;
+
+        manager->getRenderEngine()->getGraphicLib()->draw(point);
+        manager->getRenderEngine()->getGraphicLib()->updateDisplay();
+
         t += std::chrono::milliseconds(33);
         std::this_thread::sleep_until(t);
     }

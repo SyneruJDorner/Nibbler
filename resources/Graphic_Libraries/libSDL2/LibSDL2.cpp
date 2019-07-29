@@ -110,12 +110,33 @@ e_GraphicLibInput LibSDL2::events()
 
 void LibSDL2::updateDisplay()
 {
+    SDL_RenderPresent(this->renderer);
+    SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
+    SDL_RenderClear(this->renderer);
     return ;
 }
 
 void LibSDL2::draw(Vector2 point)
 {
-    (void)point;
+    if (point.x > 0 && point.y > 0)
+    {
+        int blockSize = 30;
+        int height = blockSize;
+        int width = blockSize;
+        int originX = (point.x * 10) - (blockSize/2);
+        int originY = (point.y * 10) - (blockSize/2);
+
+        SDL_Rect rect;
+
+        rect.h = height;
+        rect.w = width;
+        rect.x = originX;
+        rect.y = originY;
+
+        SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
+        SDL_RenderFillRect(this->renderer, &rect);
+    }
+
     return ;
 }
 
