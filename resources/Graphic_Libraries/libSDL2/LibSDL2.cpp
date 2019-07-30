@@ -11,6 +11,7 @@ extern "C" void destroyLib(IGraphicsLib* instance)
     delete instance;
 }
 
+
 LibSDL2::LibSDL2(void)
 {
     window = NULL;
