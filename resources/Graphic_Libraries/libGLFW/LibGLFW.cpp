@@ -1,4 +1,3 @@
-
 /*
 // Local headers
 #include "program.hpp"
@@ -145,10 +144,6 @@ LibGLFW::LibGLFW(const LibGLFW &other)
 }
 
 
-GLuint LibGLFW::LoadShaders(const char * vertex_file_path,const char * fragment_file_path){
-{
-}
-
 LibGLFW *LibGLFW::operator=(const LibGLFW &other)
 {
     (void)other;
@@ -157,9 +152,49 @@ LibGLFW *LibGLFW::operator=(const LibGLFW &other)
 
 void LibGLFW::init(int width, int height, std::string title)
 {
-    glinit();
+    // Initialize GLFW
+    glfwInit();
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+
+    glfwSetErrorCallback([](int thing, const char *error) {
+        std::cout << thing << ": " << error << std::endl;
+    });
+
+    std::string newTitle = title + " - GLFW";
+
+    glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
+
+    this->window = glfwCreateWindow(width, height, newTitle.c_str(), nullptr, nullptr);
+
+    // Set GLFW callback mechanism(s)
+    glfwSetKeyCallback(this->window, keyboardCallback);
+
+    int screenWidth, screenHeight;
+
+    glfwGetFramebufferSize(this->window, &screenWidth, &screenHeight);
+
+    if (nullptr == this->window)
+    {
+        std::cout << "Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+
+        return ;
+    }
+
+    glfwMakeContextCurrent(window);
+
+    // Setup glad
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return ;
+    }
+
+    glViewport(0, 0, screenWidth, screenHeight);
 
 }
+
 
 e_GraphicLibInput LibGLFW::events()
 {
@@ -174,7 +209,7 @@ void LibGLFW::updateDisplay()
 
 GLfloat LibGLFW::screenPosX(float pixelPos)
 {
-    return static_cast<GLfloat>(2.0f * (pixelPos + 0.5f) / 640 - 1.0f);
+    return static_cast<GLfloat>(2.0f * (pixelPos + 0.5f) / 600 - 1.0f);
 }
 
 GLfloat LibGLFW::screenPosY(float pixelPos)
@@ -182,9 +217,53 @@ GLfloat LibGLFW::screenPosY(float pixelPos)
     return static_cast<GLfloat>(2.0f * (pixelPos + 0.5f) / 480 - 1.0f);
 }
 
-void LibGLFW::draw(Vector2 point)
+void LibGLFW::draw(Grid_t point)
 {
+    bool isEqual = false;
 
+    for (auto i = this->points.begin(); i != this->points.end(); ++i)
+    {
+        if (point.position.x == i->position.x)
+            if (point.position.y == i->position.y)
+                isEqual = true;
+    }
+
+    if (!isEqual)
+        this->points.push_back(point);
+
+    int blockSize = 30;
+
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glMatrixMode( GL_PROJECTION );
+    glLoadIdentity();
+    glOrtho(0, 600, 480, 0, -1.0, 1.0);
+
+    glMatrixMode( GL_MODELVIEW );
+    glLoadIdentity();
+
+    for (auto i = this->points.begin(); i != this->points.end(); ++i)
+    {
+        glColor3f(0.0f, 0.0f, 1.0f);
+        glBegin(GL_POLYGON);
+            glVertex3f((i->position.x * 10) - (blockSize / 2), (i->position.y * 10) - (blockSize / 2), 0.0);
+            glVertex3f((i->position.x * 10) + (blockSize / 2), (i->position.y * 10) - (blockSize / 2), 0.0);
+            glVertex3f((i->position.x * 10) + (blockSize / 2), (i->position.y * 10) + (blockSize / 2), 0.0);
+            glVertex3f((i->position.x * 10) - (blockSize / 2), (i->position.y * 10) + (blockSize / 2), 0.0);
+        glEnd();
+    }
+
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glBegin(GL_POLYGON);
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(30.0, 0.0, 0.0);
+        glVertex3f(30.0, 30.0, 0.0);
+        glVertex3f(0.0, 30.0, 0.0);
+    glEnd();
+
+    glfwSwapBuffers(this->window);
+   
     return ;
 }
 

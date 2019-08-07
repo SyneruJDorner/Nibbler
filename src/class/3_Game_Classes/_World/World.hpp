@@ -19,6 +19,7 @@ class World
 	private:
         Vector2 GridMinCoords;
         Vector2 GridMaxCoords;
+		Vector2 GridCoords[];
 };
 
 #endif

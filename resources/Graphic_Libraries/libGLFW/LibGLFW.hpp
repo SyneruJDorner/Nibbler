@@ -23,7 +23,9 @@
     private:
         GLFWwindow* window;
         GLuint vertexArrayID;
-        GLuint vertexbuffer;// vertex_shader, fragment_shader, program;
+        GLuint VAO[2];
+        GLuint VBO, EBO;
+        std::vector<Grid_t> points;
         //GLint mvp_location, vpos_location, vcol_location;
         static e_GraphicLibInput status;
         GLuint programID;
@@ -39,14 +41,12 @@
         void init(int width, int height, std::string title);
         e_GraphicLibInput events();
         void updateDisplay();
-        void draw(Vector2 point);
+        void draw(Grid_t point);
         void terminateWindow();
         GLfloat screenPosX(float pixelPos);
         GLfloat screenPosY(float pixelPos);
         void renderQueue(Vector2 point);
-
-        GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path);
-        
+       
         static void keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
     };
 

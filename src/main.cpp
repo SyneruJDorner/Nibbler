@@ -89,14 +89,14 @@ void Update(GameManager *manager)
                 break;
         }
 
-        Vector2 point = Vector2();
-        Vector2 point2 = Vector2();
+        Grid_t point = Grid_t();
+        Grid_t point2 = Grid_t();
 
-        point.x = (manager->getRenderEngine()->getWidth()/10)/2;
-        point.y = (manager->getRenderEngine()->getHeight()/10)/2;
+        point.position.x = (manager->getRenderEngine()->getWidth()/10)/2;
+        point.position.y = (manager->getRenderEngine()->getHeight()/10)/2;
 
-        point2.x = ((manager->getRenderEngine()->getWidth() - 60)/10)/2;
-        point2.y = ((manager->getRenderEngine()->getHeight() - 60)/10)/2;
+        point2.position.x = ((manager->getRenderEngine()->getWidth() - 60)/10)/2;
+        point2.position.y = ((manager->getRenderEngine()->getHeight() - 60)/10)/2;
 
 
         manager->getRenderEngine()->getGraphicLib()->draw(point);

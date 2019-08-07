@@ -89,15 +89,15 @@ void LibSFML::updateDisplay()
     return ;
 }
 
-void LibSFML::draw(Vector2 point)
+void LibSFML::draw(Grid_t point)
 {
-    if (point.x > 0 && point.y > 0)
+    if (point.position.x > 0 && point.position.y > 0)
     {
         int blocksize = 30;
         sf::Vector2f size(blocksize, blocksize);
         sf::RectangleShape rect(size);
         rect.setFillColor(sf::Color::White);
-        rect.setPosition(sf::Vector2f((point.x * 10) - (blocksize/2), (point.y * 10) - (blocksize/2)));
+        rect.setPosition(sf::Vector2f((point.position.x * 10) - (blocksize/2), (point.position.y * 10) - (blocksize/2)));
         this->window->draw(rect);
     }
     

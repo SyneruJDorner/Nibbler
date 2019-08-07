@@ -117,15 +117,15 @@ void LibSDL2::updateDisplay()
     return ;
 }
 
-void LibSDL2::draw(Vector2 point)
+void LibSDL2::draw(Grid_t point)
 {
-    if (point.x > 0 && point.y > 0)
+    if (point.position.x > 0 && point.position.y > 0)
     {
         int blockSize = 30;
         int height = blockSize;
         int width = blockSize;
-        int originX = (point.x * 10) - (blockSize/2);
-        int originY = (point.y * 10) - (blockSize/2);
+        int originX = (point.position.x * 10) - (blockSize/2);
+        int originY = (point.position.y * 10) - (blockSize/2);
 
         SDL_Rect rect;
 

@@ -3,6 +3,7 @@
 
 # include <string>
 #include "./Vectors/Vector2.hpp"
+#include "../Color/Color.hpp"
 
 enum e_direction
 {
@@ -15,6 +16,7 @@ enum e_direction
 
 struct Transform_t
 {
+    Color Color;
 	Vector2 Position;
 	e_direction Direction;
 };

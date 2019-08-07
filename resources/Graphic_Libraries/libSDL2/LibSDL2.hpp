@@ -22,7 +22,7 @@
         void init(int width, int height, std::string title);
         e_GraphicLibInput events();
         void updateDisplay();
-        void draw(Vector2 point);
+        void draw(Grid_t point);
         void terminateWindow();
 
     };
