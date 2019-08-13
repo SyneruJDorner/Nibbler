@@ -176,9 +176,6 @@ void LibGLFW::draw(Grid_t point)
 
     int blockSize = 30;
 
-    //Grid_t pointArr[4];
-
-    
     for (auto i = this->points.begin(); i != this->points.end(); ++i)
     {
         glBegin(GL_POLYGON);

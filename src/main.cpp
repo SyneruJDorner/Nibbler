@@ -40,21 +40,11 @@ void Update(GameManager *manager)
         Grid_t point = Grid_t();
         Grid_t point2 = Grid_t();
 
-        point.color = Color();
-        point.color.r = 0.0;
-        point.color.g = 0.0;
-        point.color.b = 1.0;
-        point.color.a = 1.0;
-
+        point.color.SetColour(0.0, 0.0, 1.0, 1.0);
         point.position.x = (manager->getRenderEngine()->getWidth()/10)/2;
         point.position.y = (manager->getRenderEngine()->getHeight()/10)/2;
 
-        point2.color = Color();
-        point2.color.r = 1.0;
-        point2.color.g = 0.0;
-        point2.color.b = 0.0;
-        point2.color.a = 1.0;
-
+        point2.color.SetColour(1.0, 0.0, 0.0, 1.0);
         point2.position.x = ((manager->getRenderEngine()->getWidth() - 60)/10)/2;
         point2.position.y = ((manager->getRenderEngine()->getHeight() - 60)/10)/2;
 
