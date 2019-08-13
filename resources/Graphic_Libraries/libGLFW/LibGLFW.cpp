@@ -1,68 +1,3 @@
-/*
-// Local headers
-#include "program.hpp"
-#include "gloom/gloom.hpp"
-​
-    void runProgram(GLFWwindow* window)
-    {
-        // Set GLFW callback mechanism(s)
-        glfwSetKeyCallback(window, keyboardCallback);
-​
-        // Enable depth (Z) buffer (accept "closest" fragment)
-        glDisable(GL_DEPTH_TEST);
-        //glDepthFunc(GL_LESS);
-​
-        // Configure miscellaneous OpenGL settings
-        glDisable(GL_CULL_FACE);
-​
-        // Set default colour after clearing the colour buffer
-        glClearColor(0.6f, 0.3f, 0.4f, 1.0f);
-​
-        glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
-​
-        // Set up your scene here (create Vertex Array Objects, etc.)
-​
-        // Rendering Loop
-        while (!glfwWindowShouldClose(window))
-        {
-            // Clear colour and depth buffers
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            glColor4f(0.3f, 0.3f, 0.4f, 1.0f);
-​
-            // Draw your scene here
-            glBegin(GL_TRIANGLES);                      // Drawing Using Triangles
-                glVertex3f( 0.0f, 1.0f, 0.0f);              // Top
-                glVertex3f(-1.0f,-1.0f, 0.0f);              // Bottom Left
-                glVertex3f( 1.0f,-1.0f, 0.0f);              // Bottom Right
-​
-                glVertex3f( 0.0f, 1.0f, 0.0f);              // Top
-                glVertex3f( 1.0f,-1.0f, 0.0f);              // Bottom Right
-                glVertex3f(-1.0f,-1.0f, 0.0f);              // Bottom Left
-            glEnd();                            // Finished Drawing The Triangle
-​
-            // Handle other events
-            glfwPollEvents();
-​
-            // Flip buffers
-            glfwSwapBuffers(window);
-        }
-    }
-​
-​
-    void keyboardCallback(GLFWwindow* window, int key, int scancode,
-                          int action, int mods)
-    {
-        // Use escape key for terminating the GLFW window
-        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        {
-            glfwSetWindowShouldClose(window, GL_TRUE);
-        }
-    }
-Collapse
-
-*/
-
-
 #include "LibGLFW.hpp"
 
 extern "C" IGraphicsLib *createLib()
@@ -77,7 +12,6 @@ extern "C" void destroyLib(IGraphicsLib* instance)
 }
 
 e_GraphicLibInput LibGLFW::status = STD;
-
 
 void LibGLFW::keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -156,16 +90,18 @@ void LibGLFW::init(int width, int height, std::string title)
     glfwInit();
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-
     glfwSetErrorCallback([](int thing, const char *error) {
         std::cout << thing << ": " << error << std::endl;
     });
 
-    std::string newTitle = title + " - GLFW";
-
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
-    this->window = glfwCreateWindow(width, height, newTitle.c_str(), nullptr, nullptr);
+    this->window = glfwCreateWindow(width, height, (title + " - GLFW").c_str(), nullptr, nullptr);
+
+    //Set the window position
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+    glfwSetWindowPos(this->window, (mode->width - width) / 2, (mode->height - height) / 2);
 
     // Set GLFW callback mechanism(s)
     glfwSetKeyCallback(this->window, keyboardCallback);
@@ -178,7 +114,6 @@ void LibGLFW::init(int width, int height, std::string title)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
-
         return ;
     }
 
@@ -193,8 +128,13 @@ void LibGLFW::init(int width, int height, std::string title)
 
     glViewport(0, 0, screenWidth, screenHeight);
 
+    //Set camera rojection based on window resolution (start from top)
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, screenWidth, screenHeight, 0, -1.0, 1.0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 }
-
 
 e_GraphicLibInput LibGLFW::events()
 {
@@ -204,6 +144,9 @@ e_GraphicLibInput LibGLFW::events()
 
 void LibGLFW::updateDisplay()
 {
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glfwSwapBuffers(this->window);
+    glClear(GL_COLOR_BUFFER_BIT);
     return ;
 }
 
@@ -233,38 +176,21 @@ void LibGLFW::draw(Grid_t point)
 
     int blockSize = 30;
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    //Grid_t pointArr[4];
 
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-    glOrtho(0, 600, 480, 0, -1.0, 1.0);
-
-    glMatrixMode( GL_MODELVIEW );
-    glLoadIdentity();
-
+    
     for (auto i = this->points.begin(); i != this->points.end(); ++i)
     {
-        glColor3f(0.0f, 0.0f, 1.0f);
         glBegin(GL_POLYGON);
+            glColor3f(i->color.r, i->color.g, i->color.b);
             glVertex3f((i->position.x * 10) - (blockSize / 2), (i->position.y * 10) - (blockSize / 2), 0.0);
             glVertex3f((i->position.x * 10) + (blockSize / 2), (i->position.y * 10) - (blockSize / 2), 0.0);
             glVertex3f((i->position.x * 10) + (blockSize / 2), (i->position.y * 10) + (blockSize / 2), 0.0);
             glVertex3f((i->position.x * 10) - (blockSize / 2), (i->position.y * 10) + (blockSize / 2), 0.0);
         glEnd();
     }
-
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glBegin(GL_POLYGON);
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(30.0, 0.0, 0.0);
-        glVertex3f(30.0, 30.0, 0.0);
-        glVertex3f(0.0, 30.0, 0.0);
-    glEnd();
-
-    glfwSwapBuffers(this->window);
-   
-    return ;
+    
+    return;
 }
 
 void LibGLFW::terminateWindow()

@@ -35,7 +35,12 @@ LibSFML *LibSFML::operator=(const LibSFML &other)
 void LibSFML::init(int width, int height, std::string title)
 {
     this->window = new sf::RenderWindow();
-    this->window->create(sf::VideoMode(width, height), title.c_str());
+    this->window->create(sf::VideoMode(width, height), (title + " - SFML").c_str());
+
+    //Set window position
+    unsigned int screenResolutionWidth = sf::VideoMode::getDesktopMode().width;
+    unsigned int screenResolutionHeight = sf::VideoMode::getDesktopMode().height;
+    this->window->setPosition(sf::Vector2i((screenResolutionWidth - width) / 2, (screenResolutionHeight - height) / 2));
 }
 
 e_GraphicLibInput LibSFML::events()

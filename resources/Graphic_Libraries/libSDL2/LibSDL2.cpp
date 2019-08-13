@@ -42,7 +42,7 @@ void LibSDL2::init(int width, int height, std::string title)
     
     // Create an application window with the following settings:
     this->window = SDL_CreateWindow(
-        title.c_str(),       // window title
+        (title + " - SDL").c_str(),       // window title
         0,                      // initial x position
         0,                      // initial y position
         width,                  // width, in pixels
@@ -53,6 +53,13 @@ void LibSDL2::init(int width, int height, std::string title)
     if (this->window == NULL) {
         throw GraphicLibraryExceptions::CreateWindowFailedException();
     }
+
+    //Set the screens position to the centre of the screen
+    SDL_DisplayMode DM;
+    SDL_GetCurrentDisplayMode(0, &DM);
+    int screenResolutionWidth = DM.w;
+    int screenResolutionHeight = DM.h;
+    SDL_SetWindowPosition(this->window, (screenResolutionWidth / 2) - (width / 2), (screenResolutionHeight / 2) - (height / 2));
 
     this->renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 

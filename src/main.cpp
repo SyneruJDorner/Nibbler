@@ -5,40 +5,6 @@
 #include <thread>
 #include <iostream>
 
-/*
-Should look something like this
-............................................
-while (...)
-{
-treatment Events ();
-Update Game Data ();
-Update Display ();
-}
-............................................
-*/
-
-/*
-Inferface design must resemble bellow
-............................................
-class INibblerDisplay
-{
-public:
-virtual void init(...) = 0;
-virtual void getEvents(...) = 0;
-virtual void updateGameData(...) = 0;
-virtual void refreshDisplay(...) = 0;
-virtual void stop(...) = 0;
-};
-
-//Entry points
-extern "C"
-{
-    //These should be short and straight to the point
-    INibblerDisplay* getDisplayModule() { return new NibblerDisplayOpenGL(); }
-}
-............................................
-*/
-
 //Initialize world
 void Init()
 {
@@ -53,24 +19,6 @@ void Update(GameManager *manager)
     while (1)
     {
         e_GraphicLibInput output = manager->getRenderEngine()->getGraphicLib()->events();
-        //KeyCode keycode = Input::instance->DetermineInputs();
-        
-        /*
-        switch (keycode)
-        {
-            case Z:
-                manager->getRenderEngine()->changeGraphicLib(0);
-                break;
-            case X:
-                manager->getRenderEngine()->changeGraphicLib(1);
-                break;
-            case C:
-                manager->getRenderEngine()->changeGraphicLib(2);
-                break;
-            default:
-                break;
-        }
-        */
 
         switch (output)
         {
@@ -84,7 +32,7 @@ void Update(GameManager *manager)
                 manager->getRenderEngine()->changeGraphicLib(SFML);
                 break;
             case ESCAPE:
-                return ;
+                return;
             default:
                 break;
         }
@@ -92,17 +40,26 @@ void Update(GameManager *manager)
         Grid_t point = Grid_t();
         Grid_t point2 = Grid_t();
 
+        point.color = Color();
+        point.color.r = 0.0;
+        point.color.g = 0.0;
+        point.color.b = 1.0;
+        point.color.a = 1.0;
+
         point.position.x = (manager->getRenderEngine()->getWidth()/10)/2;
         point.position.y = (manager->getRenderEngine()->getHeight()/10)/2;
+
+        point2.color = Color();
+        point2.color.r = 1.0;
+        point2.color.g = 0.0;
+        point2.color.b = 0.0;
+        point2.color.a = 1.0;
 
         point2.position.x = ((manager->getRenderEngine()->getWidth() - 60)/10)/2;
         point2.position.y = ((manager->getRenderEngine()->getHeight() - 60)/10)/2;
 
-
         manager->getRenderEngine()->getGraphicLib()->draw(point);
-
         manager->getRenderEngine()->getGraphicLib()->draw(point2);
-
         manager->getRenderEngine()->getGraphicLib()->updateDisplay();
 
         t += std::chrono::milliseconds(33);
@@ -128,13 +85,17 @@ int	main(int ac, char **av)
             int width = std::stoi(av[1]);
             int height = std::stoi(av[2]);
 
-            std::cout << "WIDTH: " <<  width << std::endl;
-            std::cout << "HEIGHT: " <<  height << std::endl;
+            if (width < 640 || height < 480)
+                throw "The minimum resolution should be 640x480!";
 
             GameManager *manager = new GameManager(libs, width, height);
 
             Init();
             Update(manager);
+        }
+        catch (const char* msg)
+        {
+            std::cerr << msg << std::endl;
         }
         catch(const std::exception& e)
         {
