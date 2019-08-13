@@ -31,6 +31,7 @@
         GLuint programID;
         static const GLfloat g_vertex_buffer_data[9];
         std::vector<GLfloat *> buffers;
+        PassInfo passInfo;
 
     public:
         LibGLFW(void);
@@ -38,7 +39,7 @@
         LibGLFW(const LibGLFW &other);
         LibGLFW *operator=(const LibGLFW &other);
 
-        void init(int width, int height, std::string title);
+        void init(PassInfo passInfo, std::string title);
         e_GraphicLibInput events();
         void updateDisplay();
         void draw(Grid_t point);

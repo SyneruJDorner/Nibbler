@@ -1,4 +1,4 @@
-#include "GameManager.hpp"
+# include "GameManager.hpp"
 
 //Create a singolton access point.
 //You can easily access anything though the following.
@@ -12,7 +12,8 @@ GameManager::GameManager()
 
 GameManager::GameManager(std::string libsDir[], int width, int height)
 {
-    this->renderEngine = new RenderEngine(libsDir, width, height, 1);
+    this->world = new World(width, height, 10);
+    this->renderEngine = new RenderEngine(libsDir, width, height, 10, 1);
 }
 
 GameManager::GameManager(GameManager &obj)
@@ -20,7 +21,8 @@ GameManager::GameManager(GameManager &obj)
     RenderEngine *engine = new RenderEngine(
         obj.renderEngine->getLibDirectories(),
         obj.renderEngine->getWidth(),
-        obj.renderEngine->getWidth(),
+        obj.renderEngine->getHeight(),
+        obj.renderEngine->GetGridSize(),
         obj.renderEngine->getActiveLibNum()
     );
 
@@ -37,7 +39,8 @@ GameManager &GameManager::operator=(GameManager const &other)
     RenderEngine *engine = new RenderEngine(
             other.renderEngine->getLibDirectories(),
             other.renderEngine->getWidth(),
-            other.renderEngine->getWidth(),
+            other.renderEngine->getHeight(),
+            other.renderEngine->GetGridSize(),
             other.renderEngine->getActiveLibNum()
         );
 
@@ -48,4 +51,9 @@ GameManager &GameManager::operator=(GameManager const &other)
 RenderEngine *GameManager::getRenderEngine()
 {
     return this->renderEngine;
+}
+
+World *GameManager::GetWorld()
+{
+    return this->world;
 }

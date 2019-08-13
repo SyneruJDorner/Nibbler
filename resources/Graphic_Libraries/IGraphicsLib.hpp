@@ -1,9 +1,9 @@
 #ifndef GRAPHICS_LIB_H
 # define GRAPHICS_LIB_H
 
-    #include "../../src/class/3_Game_Classes/Grid/Grid.hpp"
-
-    #include <string>
+    # include "../../src/class/6_PassInfo/PassInfo.hpp"
+    # include "../../src/class/3_Game_Classes/Grid/Grid.hpp"
+    # include <string>
 
     enum e_GraphicLibInput
     {
@@ -23,12 +23,11 @@
     public:
         virtual ~IGraphicsLib(void) {};
 
-        virtual void init(int width, int height, std::string title) = 0;
+        virtual void init(PassInfo passInfo, std::string title) = 0;
         virtual e_GraphicLibInput events() = 0;
-        virtual void updateDisplay() = 0;
         virtual void draw(Grid_t point) = 0;
+        virtual void updateDisplay() = 0;
         virtual void terminateWindow() = 0;
-
     };
 
     typedef IGraphicsLib* createLib_t();

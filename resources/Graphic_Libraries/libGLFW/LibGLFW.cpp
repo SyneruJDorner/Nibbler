@@ -84,7 +84,7 @@ LibGLFW *LibGLFW::operator=(const LibGLFW &other)
     return this;
 }
 
-void LibGLFW::init(int width, int height, std::string title)
+void LibGLFW::init(PassInfo passInfo, std::string title)
 {
     // Initialize GLFW
     glfwInit();
@@ -96,12 +96,12 @@ void LibGLFW::init(int width, int height, std::string title)
 
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
-    this->window = glfwCreateWindow(width, height, (title + " - GLFW").c_str(), nullptr, nullptr);
+    this->window = glfwCreateWindow(passInfo.width, passInfo.height, (title + " - GLFW").c_str(), nullptr, nullptr);
 
     //Set the window position
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
     const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-    glfwSetWindowPos(this->window, (mode->width - width) / 2, (mode->height - height) / 2);
+    glfwSetWindowPos(this->window, (mode->width - passInfo.width) / 2, (mode->height - passInfo.height) / 2);
 
     // Set GLFW callback mechanism(s)
     glfwSetKeyCallback(this->window, keyboardCallback);
@@ -134,6 +134,9 @@ void LibGLFW::init(int width, int height, std::string title)
     glOrtho(0, screenWidth, screenHeight, 0, -1.0, 1.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
+    //Cache variables here
+    this->passInfo= passInfo;
 }
 
 e_GraphicLibInput LibGLFW::events()
@@ -174,7 +177,7 @@ void LibGLFW::draw(Grid_t point)
     if (!isEqual)
         this->points.push_back(point);
 
-    int blockSize = 30;
+    int blockSize = passInfo.gridSize;//GameManager::instance->GetWorld()->GetGridSize();
 
     for (auto i = this->points.begin(); i != this->points.end(); ++i)
     {

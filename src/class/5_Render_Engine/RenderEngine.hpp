@@ -2,7 +2,7 @@
 # define RENDERENGINE_HPP
 
 # include <string>
-#include <dlfcn.h>
+# include <dlfcn.h>
 # include "../../../resources/Graphic_Libraries/IGraphicsLib.hpp" 
 # include "../../../resources/Graphic_Libraries/utils/Exceptions/GraphicLibraryExceptions.hpp"
 # include "../../structs/Exceptions/RenderEngineExceptions.hpp"
@@ -10,8 +10,6 @@
 class RenderEngine
 {
 	private:
-		int width;
-		int height;
 		char* dlsym_error;
 		createLib_t* createLib;
 		destroyLib_t* destroyLib;
@@ -19,9 +17,10 @@ class RenderEngine
 		void* graphicLib;
 		IGraphicsLib* activeLib;
 		int activeLibNum;
+		PassInfo passInfo;
 
 	public:
-		RenderEngine(std::string *libDir, int width, int height, int activeLib);
+		RenderEngine(std::string *libDir, int width, int height, int gridSize, int activeLib);
 		RenderEngine(RenderEngine const &obj);
 		virtual ~RenderEngine();
 		RenderEngine &operator=(RenderEngine const &other);
@@ -36,6 +35,7 @@ class RenderEngine
 		int getActiveLibNum() const;
 		void setLibDirectories(std::string libDir[]);
 		std::string *getLibDirectories() const;
+		int GetGridSize();
 };
 
 #endif

@@ -34,7 +34,7 @@ LibSDL2 *LibSDL2::operator=(const LibSDL2 &other)
     return this;
 }
 
-void LibSDL2::init(int width, int height, std::string title)
+void LibSDL2::init(PassInfo passInfo, std::string title)
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         throw GraphicLibraryExceptions::InitFailedException();
@@ -45,8 +45,8 @@ void LibSDL2::init(int width, int height, std::string title)
         (title + " - SDL").c_str(),       // window title
         0,                      // initial x position
         0,                      // initial y position
-        width,                  // width, in pixels
-        height,                 // height, in pixels
+        passInfo.width,                  // width, in pixels
+        passInfo.height,                 // height, in pixels
         SDL_WINDOW_OPENGL       // flags - see below
     );
 
@@ -59,7 +59,7 @@ void LibSDL2::init(int width, int height, std::string title)
     SDL_GetCurrentDisplayMode(0, &DM);
     int screenResolutionWidth = DM.w;
     int screenResolutionHeight = DM.h;
-    SDL_SetWindowPosition(this->window, (screenResolutionWidth / 2) - (width / 2), (screenResolutionHeight / 2) - (height / 2));
+    SDL_SetWindowPosition(this->window, (screenResolutionWidth / 2) - (passInfo.width / 2), (screenResolutionHeight / 2) - (passInfo.height / 2));
 
     this->renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
@@ -68,6 +68,9 @@ void LibSDL2::init(int width, int height, std::string title)
     }
 
     SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
+
+    //Cache variables here
+    this->passInfo = passInfo;
 }
 
 e_GraphicLibInput LibSDL2::events()
@@ -128,7 +131,7 @@ void LibSDL2::draw(Grid_t point)
 {
     if (point.position.x > 0 && point.position.y > 0)
     {
-        int blockSize = 30;
+        int blockSize = passInfo.gridSize;
         int height = blockSize;
         int width = blockSize;
         int originX = (point.position.x * 10) - (blockSize/2);

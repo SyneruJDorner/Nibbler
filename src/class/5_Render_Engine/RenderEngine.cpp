@@ -1,6 +1,6 @@
 #include "RenderEngine.hpp"
 
-RenderEngine::RenderEngine(std::string *libDir, int width, int height, int activeLib)
+RenderEngine::RenderEngine(std::string *libDir, int width, int height, int gridSize, int activeLib)
 {
 
     this->libDirectories = new std::string[3];
@@ -8,9 +8,11 @@ RenderEngine::RenderEngine(std::string *libDir, int width, int height, int activ
     for (int i = 0; i < 3; i++)
         this->libDirectories[i] = libDir[i];
 
-    this->width = width;
-    this->height = height;
     this->activeLibNum = -1;
+    this->passInfo.width = width;
+    this->passInfo.height = height;
+    this->passInfo.gridSize = gridSize;
+
     setGraphicLib(activeLib);
 }
 
@@ -78,7 +80,7 @@ void RenderEngine::setGraphicLib(int libNumber)
         }
 
         this->activeLib = this->createLib();
-        this->activeLib->init(this->width, this->height, "Nibbler");
+        this->activeLib->init(passInfo, "Nibbler");
         this->activeLibNum = libNumber;
     }
 }
@@ -99,12 +101,12 @@ void RenderEngine::changeGraphicLib(int libNumber)
 
 int RenderEngine::getWidth() const
 {
-    return this->width;
+    return this->passInfo.width;
 }
 
 int RenderEngine::getHeight() const
 {
-    return this->height;
+    return this->passInfo.height;
 }
 
 int RenderEngine::getActiveLibNum() const
@@ -121,4 +123,9 @@ void RenderEngine::setLibDirectories(std::string libDir[])
 std::string *RenderEngine::getLibDirectories() const
 {
     return this->libDirectories;
+}
+
+int RenderEngine::GetGridSize()
+{
+    return (this->passInfo.gridSize);
 }

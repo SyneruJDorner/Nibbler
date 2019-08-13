@@ -12,13 +12,15 @@
     {
     private:
         sf::RenderWindow *window;
+        PassInfo passInfo;
+
     public:
         LibSFML(void);
         ~LibSFML(void);
         LibSFML(const LibSFML &other);
         LibSFML *operator=(const LibSFML &other);
 
-        void init(int width, int height, std::string title);
+        void init(PassInfo passInfo, std::string title);
         e_GraphicLibInput events();
         void updateDisplay();
         void draw(Grid_t point);

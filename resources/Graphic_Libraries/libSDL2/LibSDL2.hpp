@@ -12,6 +12,7 @@
     private:
         SDL_Window* window;
         SDL_Renderer* renderer;
+        PassInfo passInfo;
 
     public:
         LibSDL2(void);
@@ -19,12 +20,11 @@
         LibSDL2(const LibSDL2 &other);
         LibSDL2 *operator=(const LibSDL2 &other);
 
-        void init(int width, int height, std::string title);
+        void init(PassInfo passInfo, std::string title);
         e_GraphicLibInput events();
         void updateDisplay();
         void draw(Grid_t point);
         void terminateWindow();
-
     };
 
     extern "C" IGraphicsLib *createLib();
