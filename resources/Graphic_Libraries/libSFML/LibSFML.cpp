@@ -105,7 +105,7 @@ void LibSFML::draw(Grid_t point)
         int blockSize = passInfo.gridSize;
         sf::Vector2f size(blockSize, blockSize);
         sf::RectangleShape rect(size);
-        rect.setFillColor(sf::Color::White);
+        rect.setFillColor(sf::Color(point.color.r * 255, point.color.g * 255, point.color.b * 255, point.color.a * 255));
         rect.setPosition(sf::Vector2f((point.position.x * 10) - (blockSize / 2), (point.position.y * 10) - (blockSize / 2)));
         this->window->draw(rect);
     }

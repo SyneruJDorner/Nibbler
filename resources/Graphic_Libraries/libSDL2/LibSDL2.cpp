@@ -146,7 +146,7 @@ void LibSDL2::draw(Grid_t point)
         rect.x = originX;
         rect.y = originY;
 
-        SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
+        SDL_SetRenderDrawColor(this->renderer, point.color.r * 255, point.color.g * 255, point.color.b * 255, point.color.a * 255);
         SDL_RenderFillRect(this->renderer, &rect);
     }
 

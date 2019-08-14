@@ -11,7 +11,7 @@ Player::Player()
     this->transform.Position.x = 32;
     this->transform.Position.y = 24;
     this->transform.Direction = DIR_NUL;
-    this->transform.Color.SetColour(1.0, 1.0, 1.0, 1.0);
+    this->transform.Color.SetColour(1.0, 0.5, 0.5, 1.0);
 }
 
 Player::Player(Player &obj)

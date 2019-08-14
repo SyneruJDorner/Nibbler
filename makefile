@@ -3,7 +3,7 @@ SRC = $(shell find ./src -name *.cpp)
 OBJ_DIR = ./obj/
 OBJ := $(SRC:%.cpp=$(OBJ_DIR)%.o)
 EXEPATH = ./Executable/
-EXECUTE = $(EXEPATH)TEST
+EXECUTE = $(EXEPATH)Nibbler
 
 GLFW_FLAGS = -L./libraries/ -I./resources/GLFW/glad/include/ -I./resources/GLFW/include 
 
