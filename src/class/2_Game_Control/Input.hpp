@@ -4,6 +4,7 @@
 # include <string>
 # include <iostream>
 # include <termios.h>
+# include "../../../resources/Graphic_Libraries/IGraphicsLib.hpp"
 
 enum KeyCode
 {
@@ -22,7 +23,7 @@ class Input
 		virtual ~Input();
 		Input &operator=(Input const &other);
 		static Input *instance;
-		KeyCode DetermineInputs();
+		KeyCode DetermineInputs(e_GraphicLibInput output);
 		void ResetInput();
 		void SetKeycode(char c);
 		KeyCode GetPressedKey();

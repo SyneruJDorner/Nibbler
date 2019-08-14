@@ -94,6 +94,7 @@ e_GraphicLibInput LibSFML::events()
 void LibSFML::updateDisplay()
 {
     this->window->display();
+    this->window->clear();
     return ;
 }
 

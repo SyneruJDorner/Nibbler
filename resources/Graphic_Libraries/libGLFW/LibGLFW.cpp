@@ -15,8 +15,10 @@ e_GraphicLibInput LibGLFW::status = STD;
 
 void LibGLFW::keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    if (action == GLFW_PRESS)
-    {
+    (void)action;
+    
+    //if (action == GLFW_PRESS)
+    //{
         switch (key)
         {
             case GLFW_KEY_ESCAPE:
@@ -53,9 +55,9 @@ void LibGLFW::keyboardCallback(GLFWwindow* window, int key, int scancode, int ac
                 LibGLFW::status = STD;
                 break;
         }
-    }
-    else
-        LibGLFW::status = STD;
+    //}
+    //else
+    //    LibGLFW::status = STD;
     (void)scancode;
     (void)mods;
 }
@@ -165,6 +167,7 @@ GLfloat LibGLFW::screenPosY(float pixelPos)
 
 void LibGLFW::draw(Grid_t point)
 {
+    /*
     bool isEqual = false;
 
     for (auto i = this->points.begin(); i != this->points.end(); ++i)
@@ -176,9 +179,11 @@ void LibGLFW::draw(Grid_t point)
 
     if (!isEqual)
         this->points.push_back(point);
-
+    */
+   
     int blockSize = passInfo.gridSize;//GameManager::instance->GetWorld()->GetGridSize();
 
+    /*
     for (auto i = this->points.begin(); i != this->points.end(); ++i)
     {
         glBegin(GL_POLYGON);
@@ -189,7 +194,16 @@ void LibGLFW::draw(Grid_t point)
             glVertex3f((i->position.x * 10) - (blockSize / 2), (i->position.y * 10) + (blockSize / 2), 0.0);
         glEnd();
     }
+    */
     
+    glBegin(GL_POLYGON);
+        glColor3f(point.color.r, point.color.g, point.color.b);
+        glVertex3f((point.position.x * 10) - (blockSize / 2), (point.position.y * 10) - (blockSize / 2), 0.0);
+        glVertex3f((point.position.x * 10) + (blockSize / 2), (point.position.y * 10) - (blockSize / 2), 0.0);
+        glVertex3f((point.position.x * 10) + (blockSize / 2), (point.position.y * 10) + (blockSize / 2), 0.0);
+        glVertex3f((point.position.x * 10) - (blockSize / 2), (point.position.y * 10) + (blockSize / 2), 0.0);
+    glEnd();
+
     return;
 }
 

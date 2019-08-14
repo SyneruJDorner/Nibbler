@@ -8,7 +8,10 @@ Player *Player::instance = new Player();
 
 Player::Player()
 {
-
+    this->transform.Position.x = 32;
+    this->transform.Position.y = 24;
+    this->transform.Direction = DIR_NUL;
+    this->transform.Color.SetColour(1.0, 1.0, 1.0, 1.0);
 }
 
 Player::Player(Player &obj)
@@ -35,31 +38,28 @@ void Player::PlayerMovement(KeyCode keycode)
     //they are assigned to
     if (keycode == W &&
         this->transform.Direction != Down)
-    {
-        std::cout << "Up" << std::endl;
         this->transform.Direction = Up;
-    }
 
     if (keycode == A &&
         this->transform.Direction != Right)
-    {
-        std::cout << "Left" << std::endl;
         this->transform.Direction = Left;
-    }
 
     if (keycode == S &&
         this->transform.Direction != Up)
-    {
-        std::cout << "Down" << std::endl;
         this->transform.Direction = Down;
-    }
 
     if (keycode == D &&
         this->transform.Direction != Left)
-    {
-        std::cout << "Right" << std::endl;
-        this->transform.Direction = Right;// = Right;
-    }
+        this->transform.Direction = Right;
+
+    if (this->transform.Direction == Up)
+        this->transform.Position.y -= 1;
+    if (this->transform.Direction == Down)
+        this->transform.Position.y += 1;
+    if (this->transform.Direction == Left)
+        this->transform.Position.x -= 1;
+    if (this->transform.Direction == Right)
+        this->transform.Position.x += 1;
 }
 
 //This will handle all the general
@@ -150,4 +150,9 @@ e_CollisionType Player::DetermineCollisions()
         headPos.y >= World::instance->GetMaxGrid().y)
         return (e_CollisionType)Obsticle;
     return (e_CollisionType)None;
+}
+
+Transform_t Player::GetTranform()
+{
+    return (this->transform);
 }

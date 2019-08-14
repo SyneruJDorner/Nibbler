@@ -76,7 +76,8 @@ void LibSDL2::init(PassInfo passInfo, std::string title)
 e_GraphicLibInput LibSDL2::events()
 {
     SDL_Event event;
-    if (SDL_PollEvent( & event))
+    
+    if (SDL_PollEvent(&event))
     {
         if (event.type == SDL_QUIT)
         {
@@ -84,6 +85,7 @@ e_GraphicLibInput LibSDL2::events()
             SDL_DestroyRenderer(this->renderer);
             SDL_Quit();
         }
+
         if (event.type == SDL_KEYDOWN)
         {
             switch(event.key.keysym.sym)

@@ -32,7 +32,8 @@ class Player
 		static Player *instance;
 		void PlayerMovement(KeyCode keycode);
 		e_CollisionType DetermineCollisions();
-
+		Transform_t GetTranform();
+		
 	private:
 		void UpdateSnakeBody();
 		Transform_t transform;

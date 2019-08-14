@@ -30,35 +30,6 @@ Input &Input::operator=(Input const &other)
 }
 */
 
-int kbhit(void)
-{
-    struct timeval tv;
-    fd_set read_fd;
-
-    /* Do not wait at all, not even a microsecond */
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-
-    /* Must be done first to initialize read_fd */
-    FD_ZERO(&read_fd);
-
-    /* Makes select() ask if input is ready:
-    * 0 is the file descriptor for stdin    */
-    FD_SET(0, &read_fd);
-
-    /* The first parameter is the number of the
-    * largest file descriptor to check + 1. */
-    if(select(1, &read_fd, NULL, NULL, &tv) == -1)
-        return 0;
-
-    /*  read_fd now holds a bit map of files that are
-    * readable. We test the entry for the standard
-    * input (file 0). */
-    if(FD_ISSET(0, &read_fd))
-        return 1;
-    return 0;
-}
-
 void Input::ResetInput()
 {
     this->keyCode = NUL;
@@ -74,23 +45,31 @@ KeyCode Input::GetPressedKey()
     return (this->keyCode);
 }
 
-KeyCode Input::DetermineInputs()
+KeyCode Input::DetermineInputs(e_GraphicLibInput output)
 {
-    KeyCode pressedKey;
+    KeyCode pressedKey = NUL;
 
-    struct termios t_hide, t_show;
-    tcgetattr(STDIN_FILENO, &t_show);
-    t_hide = t_show;
-    t_hide.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &t_hide);
-
-    if(kbhit() != 0)
+    switch (output)
     {
-        int ch = getchar();
-        SetKeycode(ch);
+        case (UP):
+            std::cout << "Pressed up." << std::endl;
+            pressedKey = W;
+            break;
+        case (DOWN):
+            std::cout << "Pressed down." << std::endl;
+            pressedKey = S;
+            break;
+        case (LEFT):
+            std::cout << "Pressed left." << std::endl;
+            pressedKey = A;
+            break;
+        case (RIGHT):
+            std::cout << "Pressed right." << std::endl;
+            pressedKey = D;
+            break;
+        default:
+            break;
     }
 
-    pressedKey = GetPressedKey();
-    ResetInput();
     return pressedKey;
 }

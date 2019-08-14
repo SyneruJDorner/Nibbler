@@ -11,10 +11,41 @@ void Init()
     return ;
 }
 
+void PassPlayer(GameManager *manager, KeyCode keycode)
+{
+    Player::instance->PlayerMovement(keycode);
+
+    Grid_t point = Grid_t();
+
+    point.position = Player::instance->GetTranform().Position;
+    point.color = Player::instance->GetTranform().Color;
+    //point.color.SetColour(1.0, 0.0, 0.0, 1.0);
+
+    manager->getRenderEngine()->getGraphicLib()->draw(point);
+    manager->getRenderEngine()->getGraphicLib()->updateDisplay();
+
+    /*
+    Grid_t point2 = Grid_t();
+
+    point.color.SetColour(0.0, 0.0, 1.0, 1.0);
+    point.position.x = (manager->getRenderEngine()->getWidth() / 10) / 2;
+    point.position.y = (manager->getRenderEngine()->getHeight() / 10) / 2;
+
+    point2.color.SetColour(1.0, 0.0, 0.0, 1.0);
+    point2.position.x = ((manager->getRenderEngine()->getWidth() - 60) / 10) / 2;
+    point2.position.y = ((manager->getRenderEngine()->getHeight() - 60) / 10) / 2;
+    
+    manager->getRenderEngine()->getGraphicLib()->draw(point);
+    manager->getRenderEngine()->getGraphicLib()->draw(point2);
+    manager->getRenderEngine()->getGraphicLib()->updateDisplay();
+    */
+}
+
 //Looping of game
 void Update(GameManager *manager)
 {
     std::chrono::time_point<std::chrono::system_clock> t = std::chrono::system_clock::now();
+    KeyCode keycode = NUL;
 
     while (1)
     {
@@ -34,25 +65,12 @@ void Update(GameManager *manager)
             case ESCAPE:
                 return;
             default:
+                keycode = Input::instance->DetermineInputs(output);
                 break;
         }
 
-        Grid_t point = Grid_t();
-        Grid_t point2 = Grid_t();
-
-        point.color.SetColour(0.0, 0.0, 1.0, 1.0);
-        point.position.x = (manager->getRenderEngine()->getWidth()/10)/2;
-        point.position.y = (manager->getRenderEngine()->getHeight()/10)/2;
-
-        point2.color.SetColour(1.0, 0.0, 0.0, 1.0);
-        point2.position.x = ((manager->getRenderEngine()->getWidth() - 60)/10)/2;
-        point2.position.y = ((manager->getRenderEngine()->getHeight() - 60)/10)/2;
-
-        manager->getRenderEngine()->getGraphicLib()->draw(point);
-        manager->getRenderEngine()->getGraphicLib()->draw(point2);
-        manager->getRenderEngine()->getGraphicLib()->updateDisplay();
-
-        t += std::chrono::milliseconds(33);
+        PassPlayer(manager, keycode);
+        t += std::chrono::milliseconds(66);
         std::this_thread::sleep_until(t);
     }
 }
