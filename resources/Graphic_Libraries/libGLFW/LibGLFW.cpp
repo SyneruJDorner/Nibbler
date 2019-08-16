@@ -36,19 +36,15 @@ void LibGLFW::keyboardCallback(GLFWwindow* window, int key, int scancode, int ac
                 LibGLFW::status = SFML;
                 break;
             case GLFW_KEY_A:
-                std::cout << "Event GLFW key A" << std::endl;
                 LibGLFW::status = LEFT;
                 break;
             case GLFW_KEY_D:
-                std::cout << "Event GLFW key D" << std::endl;
                 LibGLFW::status = RIGHT;
                 break;
             case GLFW_KEY_W:
-                std::cout << "Event GLFW key W" << std::endl;
                 LibGLFW::status = UP;
                 break;
             case GLFW_KEY_S:
-                std::cout << "Event GLFW key S" << std::endl;
                 LibGLFW::status = DOWN;
                 break;
             default:

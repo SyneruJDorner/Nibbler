@@ -97,16 +97,12 @@ e_GraphicLibInput LibSDL2::events()
                 case SDLK_F3:
                     return SFML;
                 case SDLK_a:
-                    std::cout << "Event SDL2 key A" << std::endl;
                     return LEFT;
                 case SDLK_d:
-                    std::cout << "Event SDL2 key D" << std::endl;
                     return RIGHT;
                 case SDLK_w:
-                    std::cout << "Event SDL2 key W" << std::endl;
                     return UP;
                 case SDLK_s:
-                    std::cout << "Event SDL2 key S" << std::endl;
                     return DOWN;
                 case SDLK_ESCAPE:
                     SDL_DestroyWindow(this->window);

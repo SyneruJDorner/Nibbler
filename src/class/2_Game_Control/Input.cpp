@@ -52,19 +52,15 @@ KeyCode Input::DetermineInputs(e_GraphicLibInput output)
     switch (output)
     {
         case (UP):
-            std::cout << "Pressed up." << std::endl;
             pressedKey = W;
             break;
         case (DOWN):
-            std::cout << "Pressed down." << std::endl;
             pressedKey = S;
             break;
         case (LEFT):
-            std::cout << "Pressed left." << std::endl;
             pressedKey = A;
             break;
         case (RIGHT):
-            std::cout << "Pressed right." << std::endl;
             pressedKey = D;
             break;
         default:

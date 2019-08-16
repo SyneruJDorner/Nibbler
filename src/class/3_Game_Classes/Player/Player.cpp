@@ -8,10 +8,22 @@ Player *Player::instance = new Player();
 
 Player::Player()
 {
-    this->transform.Position.x = 32;
-    this->transform.Position.y = 24;
-    this->transform.Direction = DIR_NUL;
-    this->transform.Color.SetColour(1.0, 0.5, 0.5, 1.0);
+    //Set up the snakes head
+    this->snakeBody.Head.Position.x = 32;
+    this->snakeBody.Head.Position.y = 24;
+    this->snakeBody.Head.Direction = Up;
+    this->snakeBody.Head.Color.SetColour(1.0, 1.0, 1.0, 1.0);
+
+    //Set up the snakes body
+    for (size_t i = 0; i < 5; i++)
+    {
+        Transform_t bodyPart;
+        bodyPart.Position.x = 32 - i;
+        bodyPart.Position.y = 24;
+        bodyPart.Direction = DIR_NUL;
+        bodyPart.Color.SetColour(1.0, 0.0, 0.0, 1.0);
+        this->snakeBody.Body.push_back(bodyPart);
+    }
 }
 
 Player::Player(Player &obj)
@@ -33,87 +45,58 @@ Player &Player::operator=(Player const &other)
 
 void Player::PlayerMovement(KeyCode keycode)
 {
-    //We going update the snake movement
-    //every frame based on the direction
-    //they are assigned to
+    //We going update the snake movement every frame based on the direction they are assigned to
     if (keycode == W &&
-        this->transform.Direction != Down)
-        this->transform.Direction = Up;
+        this->snakeBody.Head.Direction != Down)
+        this->snakeBody.Head.Direction = Up;
 
     if (keycode == A &&
-        this->transform.Direction != Right)
-        this->transform.Direction = Left;
+        this->snakeBody.Head.Direction != Right)
+        this->snakeBody.Head.Direction = Left;
 
     if (keycode == S &&
-        this->transform.Direction != Up)
-        this->transform.Direction = Down;
+        this->snakeBody.Head.Direction != Up)
+        this->snakeBody.Head.Direction = Down;
 
     if (keycode == D &&
-        this->transform.Direction != Left)
-        this->transform.Direction = Right;
+        this->snakeBody.Head.Direction != Left)
+        this->snakeBody.Head.Direction = Right;
 
-    if (this->transform.Direction == Up)
-        this->transform.Position.y -= 1;
-    if (this->transform.Direction == Down)
-        this->transform.Position.y += 1;
-    if (this->transform.Direction == Left)
-        this->transform.Position.x -= 1;
-    if (this->transform.Direction == Right)
-        this->transform.Position.x += 1;
-}
+    if (this->snakeBody.Head.Direction != DIR_NUL)
+        UpdateSnakeBody();
 
-//This will handle all the general
-//position of the snake in a Vector2
-//World
-void Player::UpdateSnakeBody()
-{
-    Vector2 MovementVector;
-
-    switch (this->transform.Direction)
+    switch (this->snakeBody.Head.Direction)
     {
-        case Up:
-            MovementVector.y += 1;
+        case (Up):
+            this->snakeBody.Head.Position.y -= 1;
             break;
-        case Down:
-            MovementVector.y -= 1;
+        case (Down):
+           this->snakeBody.Head.Position.y += 1;
             break;
-        case Right:
-            MovementVector.x += 1;
+        case (Left):
+            this->snakeBody.Head.Position.x -= 1;
             break;
-        case Left:
-            MovementVector.x -= 1;
+        case (Right):
+            this->snakeBody.Head.Position.x += 1;
             break;
-        
         default:
-            MovementVector.x = 0;
-            MovementVector.y = 0;
             break;
     }
 
-    //Move the head into the desired position
-    Vector2 HeadPreviousPos = this->snakeBody.Head;
-    this->snakeBody.Head.x += MovementVector.x;
-    this->snakeBody.Head.y += MovementVector.y;
-
-    //Move the last joint of the snakes body to the first point
-    //Still need to figure out a nice way to
-    //Update the coord on the body
-    //Vector2 Joint = this->snakeBody.Body[this->snakeBody.Body.size() - 1];
-    //Vector2 jointPreviousPos = Joint;
-    //Joint = HeadPreviousPos; //This will set the last body part of the snake to the heads previous position
     
-    Vector2 LastBodyPos = this->snakeBody.Body.back();
-    this->snakeBody.Body.insert(this->snakeBody.Body.begin(), this->snakeBody.Body.back());
-    this->snakeBody.Body.pop_back();
-    this->snakeBody.Body[0] = HeadPreviousPos;
+}
 
-    //Update the tails position based on the updated
-    //Joint above we use its previous pos
-    this->snakeBody.Tail = LastBodyPos;
+//This will handle all the general position of the snake in a Vector2 World
+void Player::UpdateSnakeBody()
+{
+    this->snakeBody.Body[this->snakeBody.Body.size() - 1].Position.x = this->snakeBody.Head.Position.x;
+    this->snakeBody.Body[this->snakeBody.Body.size() - 1].Position.y = this->snakeBody.Head.Position.y;
+    std::rotate(this->snakeBody.Body.rbegin(), this->snakeBody.Body.rbegin() + 1, this->snakeBody.Body.rend());
 }
 
 e_CollisionType Player::DetermineCollisions()
 {
+    /*
     //Determine if the head touches any of the following:
     //-It's body
     //-It's tail
@@ -135,6 +118,7 @@ e_CollisionType Player::DetermineCollisions()
     if (headPos.x == this->snakeBody.Tail.x &&
         headPos.y == this->snakeBody.Tail.y)
         return (e_CollisionType)Tail;
+    */
 
     //Obsticle
     /*
@@ -143,16 +127,19 @@ e_CollisionType Player::DetermineCollisions()
         return (e_CollisionType)Tail;
     */
 
+
+    /*
     //Edge of world
     if (headPos.x <= World::instance->GetMinGrid().x || 
         headPos.x >= World::instance->GetMaxGrid().x ||
         headPos.y <= World::instance->GetMinGrid().y || 
         headPos.y >= World::instance->GetMaxGrid().y)
         return (e_CollisionType)Obsticle;
+    */
     return (e_CollisionType)None;
 }
 
-Transform_t Player::GetTranform()
+SnakeBody Player::GetSanke()
 {
-    return (this->transform);
+    return (this->snakeBody);
 }

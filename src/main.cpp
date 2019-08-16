@@ -13,32 +13,27 @@ void Init()
 
 void PassPlayer(GameManager *manager, KeyCode keycode)
 {
+    //Queue everything for rendering
     Player::instance->PlayerMovement(keycode);
+    SnakeBody snakeBody = Player::instance->GetSanke();
 
-    Grid_t point = Grid_t();
+    //Queueing head
+    Grid_t PlayerHead = Grid_t();
+    PlayerHead.position = snakeBody.Head.Position;
+    PlayerHead.color = snakeBody.Head.Color;
+    manager->getRenderEngine()->getGraphicLib()->draw(PlayerHead);
 
-    point.position = Player::instance->GetTranform().Position;
-    point.color = Player::instance->GetTranform().Color;
-    //point.color.SetColour(1.0, 0.0, 0.0, 1.0);
-
-    manager->getRenderEngine()->getGraphicLib()->draw(point);
-    manager->getRenderEngine()->getGraphicLib()->updateDisplay();
-
-    /*
-    Grid_t point2 = Grid_t();
-
-    point.color.SetColour(0.0, 0.0, 1.0, 1.0);
-    point.position.x = (manager->getRenderEngine()->getWidth() / 10) / 2;
-    point.position.y = (manager->getRenderEngine()->getHeight() / 10) / 2;
-
-    point2.color.SetColour(1.0, 0.0, 0.0, 1.0);
-    point2.position.x = ((manager->getRenderEngine()->getWidth() - 60) / 10) / 2;
-    point2.position.y = ((manager->getRenderEngine()->getHeight() - 60) / 10) / 2;
+    //Queueing body
+    for (size_t i = 0; i < snakeBody.Body.size(); i++)
+    {
+        Grid_t PlayerBody = Grid_t();
+        PlayerBody.position = snakeBody.Body[i].Position;
+        PlayerBody.color = snakeBody.Body[i].Color;
+        manager->getRenderEngine()->getGraphicLib()->draw(PlayerBody);  
+    }
     
-    manager->getRenderEngine()->getGraphicLib()->draw(point);
-    manager->getRenderEngine()->getGraphicLib()->draw(point2);
+    //Finally render everything we queued
     manager->getRenderEngine()->getGraphicLib()->updateDisplay();
-    */
 }
 
 //Looping of game

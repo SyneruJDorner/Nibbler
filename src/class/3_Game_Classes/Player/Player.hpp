@@ -8,9 +8,9 @@
 
 struct SnakeBody
 {
-	Vector2 Head;
-	std::vector<Vector2> Body;//can call Body.push_back() or Body.push_back()
-	Vector2 Tail;
+	Transform_t Head;
+	std::vector<Transform_t> Body;
+	Transform_t Tail;
 };
 
 enum e_CollisionType
@@ -32,11 +32,10 @@ class Player
 		static Player *instance;
 		void PlayerMovement(KeyCode keycode);
 		e_CollisionType DetermineCollisions();
-		Transform_t GetTranform();
+		SnakeBody GetSanke();
 		
 	private:
 		void UpdateSnakeBody();
-		Transform_t transform;
 		SnakeBody snakeBody;
 };
 
