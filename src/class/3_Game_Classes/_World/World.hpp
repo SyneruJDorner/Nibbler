@@ -18,12 +18,16 @@ class World
         Vector2 GetMinGrid();
         Vector2 GetMaxGrid();
 		int GetGridSize();
+		int getWidth();
+		int getHeight();
 
 	private:
         Vector2 GridMinCoords;
         Vector2 GridMaxCoords;
 		Grid_t **worldGrids;
 		int grdiSize;
+		int width;
+		int height;
 };
 
 #endif

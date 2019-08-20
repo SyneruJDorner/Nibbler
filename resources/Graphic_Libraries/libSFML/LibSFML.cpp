@@ -67,15 +67,19 @@ e_GraphicLibInput LibSFML::events()
                 case sf::Keyboard::F3:
                     return SFML;
                 case sf::Keyboard::W:
+                case sf::Keyboard::Up:
                     return UP;
                     break;
                 case sf::Keyboard::S:
+                case sf::Keyboard::Down:
                     return DOWN;
                     break;
                 case sf::Keyboard::A:
+                case sf::Keyboard::Left:
                     return LEFT;
                     break;
                 case sf::Keyboard::D:
+                case sf::Keyboard::Right:
                     return RIGHT;
                     break;
                 default:

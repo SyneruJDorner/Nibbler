@@ -13,14 +13,7 @@ struct SnakeBody
 	Transform_t Tail;
 };
 
-enum e_CollisionType
-{
-	None,
-	Body,
-	Tail,
-	Obsticle,
-	Pickup
-};
+
 
 class Player
 {
@@ -32,10 +25,12 @@ class Player
 		static Player *instance;
 		void PlayerMovement(KeyCode keycode);
 		e_CollisionType DetermineCollisions();
-		SnakeBody GetSanke();
+		SnakeBody *getSnake();
+
+		void SetupSnake(int maxX, int maxY);
 		
-	private:
 		void UpdateSnakeBody();
+	private:
 		SnakeBody snakeBody;
 };
 

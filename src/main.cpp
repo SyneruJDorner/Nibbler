@@ -11,11 +11,12 @@ void Init()
     return ;
 }
 
+/*
 void PassPlayer(GameManager *manager, KeyCode keycode)
 {
     //Queue everything for rendering
     Player::instance->PlayerMovement(keycode);
-    SnakeBody snakeBody = Player::instance->GetSanke();
+    SnakeBody snakeBody = Player::instance->getSnake();
 
     //Queueing head
     Grid_t PlayerHead = Grid_t();
@@ -35,6 +36,7 @@ void PassPlayer(GameManager *manager, KeyCode keycode)
     //Finally render everything we queued
     manager->getRenderEngine()->getGraphicLib()->updateDisplay();
 }
+*/
 
 //Looping of game
 void Update(GameManager *manager)
@@ -63,9 +65,13 @@ void Update(GameManager *manager)
                 keycode = Input::instance->DetermineInputs(output);
                 break;
         }
-
-        PassPlayer(manager, keycode);
-        t += std::chrono::milliseconds(66);
+        manager->passPlayer(keycode);
+        if (manager->Collisions())
+        {
+            std::cout << "END OF GAME" << std::endl;
+            return;
+        }
+        t += std::chrono::milliseconds(33);
         std::this_thread::sleep_until(t);
     }
 }

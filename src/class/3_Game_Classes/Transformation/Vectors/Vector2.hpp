@@ -5,6 +5,8 @@ struct Vector2
 {
 	double x;
 	double y;
+
+	bool operator==(const Vector2 &other);
 };
 
 #endif

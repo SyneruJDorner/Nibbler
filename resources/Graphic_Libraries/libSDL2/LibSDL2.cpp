@@ -97,12 +97,16 @@ e_GraphicLibInput LibSDL2::events()
                 case SDLK_F3:
                     return SFML;
                 case SDLK_a:
+                case SDLK_LEFT:
                     return LEFT;
                 case SDLK_d:
+                case SDLK_RIGHT:
                     return RIGHT;
-                case SDLK_w:
+                case SDLK_w: 
+                case SDLK_UP:
                     return UP;
                 case SDLK_s:
+                case SDLK_DOWN:
                     return DOWN;
                 case SDLK_ESCAPE:
                     SDL_DestroyWindow(this->window);

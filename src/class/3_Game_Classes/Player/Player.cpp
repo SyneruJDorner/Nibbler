@@ -8,22 +8,7 @@ Player *Player::instance = new Player();
 
 Player::Player()
 {
-    //Set up the snakes head
-    this->snakeBody.Head.Position.x = 32;
-    this->snakeBody.Head.Position.y = 24;
-    this->snakeBody.Head.Direction = Up;
-    this->snakeBody.Head.Color.SetColour(1.0, 1.0, 1.0, 1.0);
 
-    //Set up the snakes body
-    for (size_t i = 0; i < 5; i++)
-    {
-        Transform_t bodyPart;
-        bodyPart.Position.x = 32 - i;
-        bodyPart.Position.y = 24;
-        bodyPart.Direction = DIR_NUL;
-        bodyPart.Color.SetColour(1.0, 0.0, 0.0, 1.0);
-        this->snakeBody.Body.push_back(bodyPart);
-    }
 }
 
 Player::Player(Player &obj)
@@ -82,8 +67,27 @@ void Player::PlayerMovement(KeyCode keycode)
         default:
             break;
     }
-
     
+}
+
+void Player::SetupSnake(int maxX, int maxY)
+{
+    //Set up the snakes head
+    this->snakeBody.Head.Position.x = maxX/2;
+    this->snakeBody.Head.Position.y = maxY/2;
+    this->snakeBody.Head.Direction = Up;
+    this->snakeBody.Head.Color.SetColour(1.0, 1.0, 1.0, 1.0);
+
+    //Set up the snakes body
+    for (size_t i = 1; i <= 20 ; i++)
+    {
+        Transform_t bodyPart;
+        bodyPart.Position.x = maxX/2 - i;
+        bodyPart.Position.y = maxY/2;
+        bodyPart.Direction = DIR_NUL;
+        bodyPart.Color.SetColour(1.0, 0.0, 0.0, 1.0);
+        this->snakeBody.Body.push_back(bodyPart);
+    }
 }
 
 //This will handle all the general position of the snake in a Vector2 World
@@ -139,7 +143,7 @@ e_CollisionType Player::DetermineCollisions()
     return (e_CollisionType)None;
 }
 
-SnakeBody Player::GetSanke()
+SnakeBody *Player::getSnake()
 {
-    return (this->snakeBody);
+    return (&this->snakeBody);
 }

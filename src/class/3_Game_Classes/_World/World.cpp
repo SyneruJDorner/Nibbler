@@ -13,6 +13,8 @@ World::World()
 World::World(int screenWidth, int screenHeight, int gridSize)
 {
     SetupGrid(screenWidth, screenHeight, gridSize);
+    this->width = screenWidth;
+    this->height = screenHeight;
 }
 
 World::World(World &obj)
@@ -69,4 +71,14 @@ Vector2 World::GetMaxGrid()
 int World::GetGridSize()
 {
     return (this->grdiSize);
+}
+
+int World::getHeight()
+{
+    return (this->height);
+}
+
+int World::getWidth()
+{
+    return (this->width);
 }

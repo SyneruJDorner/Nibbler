@@ -14,6 +14,15 @@ enum e_direction
     Right = 3
 };
 
+enum e_CollisionType
+{
+	None,
+	Body,
+	Tail,
+	Collidable,
+	Collectable
+};
+
 struct Transform_t
 {
     Color Color;

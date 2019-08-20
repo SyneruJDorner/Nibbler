@@ -20,6 +20,16 @@ ObsticleCollection::~ObsticleCollection()
 
 }
 
+std::vector<Obsticle> *ObsticleCollection::getObsticleList()
+{
+    return &this->ObsticlesList;
+}
+
+std::vector<Obsticle> *ObsticleCollection::getCollectablesList()
+{
+    return &this->CollectablesList;
+}
+
 /*
 ObsticleCollection &ObsticleCollection::operator=(ObsticleCollection const &other)
 {

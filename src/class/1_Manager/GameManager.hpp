@@ -6,11 +6,16 @@
 # include "../5_Render_Engine/RenderEngine.hpp"
 # include "../6_PassInfo/PassInfo.hpp"
 
+# include "../3_Game_Classes/Player/Player.hpp"
+
+#include "../3_Game_Classes/Obsticles/ObsticleCollection.hpp"
+
 class GameManager
 {
 	private:
 		RenderEngine * renderEngine;
 		World *world;
+		int cellSize;
 
 	public:
 		GameManager();
@@ -22,6 +27,8 @@ class GameManager
 
 		RenderEngine *getRenderEngine();
 		World *GetWorld();
+		void passPlayer(KeyCode keycode);
+		bool Collisions();
 };
 
 #endif
