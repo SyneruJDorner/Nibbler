@@ -20,7 +20,8 @@ enum e_CollisionType
 	Body,
 	Tail,
 	Collidable,
-	Collectable
+	Collectable,
+	BonusCollectable
 };
 
 struct Transform_t

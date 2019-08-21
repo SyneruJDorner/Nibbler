@@ -66,12 +66,14 @@ void Update(GameManager *manager)
                 break;
         }
         manager->passPlayer(keycode);
+
         if (manager->Collisions())
         {
             std::cout << "END OF GAME" << std::endl;
             return;
         }
-        t += std::chrono::milliseconds(33);
+
+        t += std::chrono::milliseconds(GameManager::instance->GetTimeScale());
         std::this_thread::sleep_until(t);
     }
 }
@@ -96,8 +98,13 @@ int	main(int ac, char **av)
 
             if (width < 640 || height < 480)
                 throw "The minimum resolution should be 640x480!";
+                
+            if (width > 1600 || height > 900)
+                throw "The maximum resolution should be 1600x900!";
+                
 
-            GameManager *manager = new GameManager(libs, width, height);
+            GameManager *manager = GameManager::instance;//new GameManager(libs, width, height);
+            manager->SetupManagerForInstance(libs, width, height);
 
             Init();
             Update(manager);

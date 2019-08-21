@@ -79,7 +79,7 @@ void Player::SetupSnake(int maxX, int maxY)
     this->snakeBody.Head.Color.SetColour(1.0, 1.0, 1.0, 1.0);
 
     //Set up the snakes body
-    for (size_t i = 1; i <= 20 ; i++)
+    for (size_t i = 1; i <= 4 ; i++)
     {
         Transform_t bodyPart;
         bodyPart.Position.x = maxX/2 - i;

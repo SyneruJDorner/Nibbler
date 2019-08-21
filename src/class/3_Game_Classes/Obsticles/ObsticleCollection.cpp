@@ -17,7 +17,7 @@ ObsticleCollection::ObsticleCollection(ObsticleCollection &obj)
 
 ObsticleCollection::~ObsticleCollection()
 {
-
+    
 }
 
 std::vector<Obsticle> *ObsticleCollection::getObsticleList()
@@ -28,6 +28,11 @@ std::vector<Obsticle> *ObsticleCollection::getObsticleList()
 std::vector<Obsticle> *ObsticleCollection::getCollectablesList()
 {
     return &this->CollectablesList;
+}
+
+std::vector<Obsticle> *ObsticleCollection::getBonusCollectablesList()
+{
+    return &this->BonusCollectablesList;
 }
 
 /*

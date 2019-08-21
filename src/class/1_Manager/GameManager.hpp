@@ -16,6 +16,9 @@ class GameManager
 		RenderEngine * renderEngine;
 		World *world;
 		int cellSize;
+		int timeScale;
+		int bonusFoodCnt;
+		int bonusSpawnAmt;
 
 	public:
 		GameManager();
@@ -24,11 +27,17 @@ class GameManager
 		virtual ~GameManager();
 		GameManager &operator=(GameManager const &other);
 		static GameManager *instance;
+		void SetupManagerForInstance(std::string libsDir[], int width, int height);
 
 		RenderEngine *getRenderEngine();
 		World *GetWorld();
 		void passPlayer(KeyCode keycode);
 		bool Collisions();
+		int GetTimeScale();
+		void IncrementTimeScale(int amt);
+		void GeneralFood();
+		void BonusFood();
+		int randomRange(int min, int max);
 };
 
 #endif

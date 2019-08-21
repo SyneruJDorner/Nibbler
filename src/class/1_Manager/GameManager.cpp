@@ -12,6 +12,47 @@ GameManager::GameManager()
 
 GameManager::GameManager(std::string libsDir[], int width, int height)
 {
+    SetupManagerForInstance(libsDir, width, height);
+}
+
+GameManager::GameManager(GameManager &obj)
+{
+    RenderEngine *engine = new RenderEngine(
+        obj.renderEngine->getLibDirectories(),
+        obj.renderEngine->getWidth(),
+        obj.renderEngine->getHeight(),
+        obj.renderEngine->GetGridSize(),
+        obj.renderEngine->getActiveLibNum()
+    );
+
+    this->renderEngine = engine;
+}
+
+GameManager::~GameManager()
+{
+    delete this->renderEngine;
+    delete this->world;
+}
+
+GameManager &GameManager::operator=(GameManager const &other)
+{
+    RenderEngine *engine = new RenderEngine(
+            other.renderEngine->getLibDirectories(),
+            other.renderEngine->getWidth(),
+            other.renderEngine->getHeight(),
+            other.renderEngine->GetGridSize(),
+            other.renderEngine->getActiveLibNum()
+        );
+
+    this->renderEngine = engine;
+    return *this;
+}
+
+void GameManager::SetupManagerForInstance(std::string libsDir[], int width, int height)
+{
+    this->timeScale = 66;
+    this->bonusFoodCnt = 1;
+    this->bonusSpawnAmt = 2;
     this->cellSize = 10;
     this->world = new World(width, height, this->cellSize);
     this->renderEngine = new RenderEngine(libsDir, width, height, this->cellSize, 1);
@@ -52,39 +93,6 @@ GameManager::GameManager(std::string libsDir[], int width, int height)
     ObsticleCollection::instance->getCollectablesList()->push_back(temp);
 }
 
-GameManager::GameManager(GameManager &obj)
-{
-    RenderEngine *engine = new RenderEngine(
-        obj.renderEngine->getLibDirectories(),
-        obj.renderEngine->getWidth(),
-        obj.renderEngine->getHeight(),
-        obj.renderEngine->GetGridSize(),
-        obj.renderEngine->getActiveLibNum()
-    );
-
-    this->renderEngine = engine;
-}
-
-GameManager::~GameManager()
-{
-    delete this->renderEngine;
-    delete this->world;
-}
-
-GameManager &GameManager::operator=(GameManager const &other)
-{
-    RenderEngine *engine = new RenderEngine(
-            other.renderEngine->getLibDirectories(),
-            other.renderEngine->getWidth(),
-            other.renderEngine->getHeight(),
-            other.renderEngine->GetGridSize(),
-            other.renderEngine->getActiveLibNum()
-        );
-
-    this->renderEngine = engine;
-    return *this;
-}
-
 RenderEngine *GameManager::getRenderEngine()
 {
     return this->renderEngine;
@@ -102,6 +110,7 @@ void GameManager::passPlayer(KeyCode keycode)
     SnakeBody *snakeBody = Player::instance->getSnake();
     std::vector<Obsticle> *borderWall = ObsticleCollection::instance->getObsticleList();
     std::vector<Obsticle> *collectables = ObsticleCollection::instance->getCollectablesList();
+    std::vector<Obsticle> *bonusCollectables = ObsticleCollection::instance->getBonusCollectablesList();
 
     //Queueing head
     Grid_t PlayerHead = Grid_t();
@@ -136,6 +145,15 @@ void GameManager::passPlayer(KeyCode keycode)
         getRenderEngine()->getGraphicLib()->draw(pickup);
     }
 
+    //Queueing Bonus Collectables
+    for (auto i = bonusCollectables->begin(); i != bonusCollectables->end(); ++i)
+    {
+        Grid_t pickup = Grid_t();
+        pickup.position = i->trans.Position;
+        pickup.color = i->trans.Color;
+        getRenderEngine()->getGraphicLib()->draw(pickup);
+    }
+
     //Finally render everything we queued
     getRenderEngine()->getGraphicLib()->updateDisplay();
 }
@@ -145,6 +163,7 @@ bool GameManager::Collisions()
     SnakeBody *snakeBody = Player::instance->getSnake();
     std::vector<Obsticle> *borderWall = ObsticleCollection::instance->getObsticleList();
     std::vector<Obsticle> *collectables = ObsticleCollection::instance->getCollectablesList();
+    std::vector<Obsticle> *bonusCollectables = ObsticleCollection::instance->getBonusCollectablesList();
 
     //Collision with Collectable
     for (auto i = collectables->begin(); i != collectables->end() ; ++i)
@@ -152,14 +171,16 @@ bool GameManager::Collisions()
         if (snakeBody->Head.Position.x == i->trans.Position.x)
             if (snakeBody->Head.Position.y == i->trans.Position.y)
             {
-                ObsticleCollection::instance->getCollectablesList()->pop_back();
+                if (i->type == Collectable)
+                {
+                    ObsticleCollection::instance->getCollectablesList()->erase(i);
+                    GeneralFood();
 
-                Obsticle temp;
-                temp.trans.Position.x = rand() % ((GetWorld()->getWidth() - (2 * this->cellSize))/this->cellSize) + 2;
-                temp.trans.Position.y = rand() % ((GetWorld()->getHeight() - (2 * this->cellSize))/this->cellSize) + 2;
-                temp.type = Collectable;
-                temp.trans.Color.SetColour(0.0, 1.0, 0.2, 1);
-                ObsticleCollection::instance->getCollectablesList()->push_back(temp);
+                    if (this->bonusFoodCnt++ == bonusSpawnAmt)//Happens every 4 food pickups
+                    {
+                        BonusFood();
+                    }
+                }
 
                 //Grow Snake body
                 Transform_t bodyPart;
@@ -169,11 +190,49 @@ bool GameManager::Collisions()
                 bodyPart.Color.SetColour(1.0, 0.0, 0.0, 1.0);
                 Player::instance->UpdateSnakeBody();
                 Player::instance->getSnake()->Body.push_back(bodyPart);
-                
+                IncrementTimeScale(4);
+
                 return false;
             }
     }
-    
+
+    for (auto i = bonusCollectables->begin(); i != bonusCollectables->end() ; ++i)
+    {
+        if (i->lifespan > 0)
+        {
+            std::cout << "life: " << (double)GameManager::instance->GetTimeScale() / 1000 << std::endl;
+            i->lifespan -= (double)GameManager::instance->GetTimeScale() / 1000;
+        }
+        else
+        {               
+            this->bonusFoodCnt = 0;
+            ObsticleCollection::instance->getBonusCollectablesList()->erase(i);
+            break;
+        }
+
+        if (snakeBody->Head.Position.x == i->trans.Position.x)
+            if (snakeBody->Head.Position.y == i->trans.Position.y)
+            {
+                if (i->type == BonusCollectable)
+                {
+                    this->bonusFoodCnt = 0;
+                    ObsticleCollection::instance->getBonusCollectablesList()->erase(i);
+                }
+
+                //Grow Snake body
+                Transform_t bodyPart;
+                bodyPart.Position.x = snakeBody->Body[snakeBody->Body.size() - 1].Position.x;
+                bodyPart.Position.y = snakeBody->Body[snakeBody->Body.size() - 1].Position.y; 
+                bodyPart.Direction = DIR_NUL;
+                bodyPart.Color.SetColour(1.0, 0.0, 0.0, 1.0);
+                Player::instance->UpdateSnakeBody();
+                Player::instance->getSnake()->Body.push_back(bodyPart);
+                IncrementTimeScale(4);
+
+                return false;
+            }
+    }
+
     //Collision with Body
     for (size_t i = 0; i < snakeBody->Body.size(); i++)
     {
@@ -198,4 +257,65 @@ bool GameManager::Collisions()
     }
 
     return false;
+}
+
+void GameManager::GeneralFood()
+{
+    Obsticle temp;
+    //temp.trans.Position.x = rand() % ((GetWorld()->getWidth() - (2 * this->cellSize))/this->cellSize) + 2;
+    //temp.trans.Position.y = rand() % ((GetWorld()->getHeight() - (2 * this->cellSize))/this->cellSize) + 2;
+    
+    int minX = 2;
+    int maxX = (GetWorld()->getWidth() - (2 * this->cellSize))/this->cellSize;
+    temp.trans.Position.x = randomRange(minX, maxX);// % ((GetWorld()->getWidth() - (2 * this->cellSize))/this->cellSize) + 2;
+    
+    int minY = 2;
+    int maxY = (GetWorld()->getHeight() - (2 * this->cellSize))/this->cellSize;
+    temp.trans.Position.y = randomRange(minY, maxY);//% ((GetWorld()->getHeight() - (2 * this->cellSize))/this->cellSize) + 2;
+
+    temp.type = Collectable;
+    temp.trans.Color.SetColour(0.0, 1.0, 0.2, 1);
+    ObsticleCollection::instance->getCollectablesList()->push_back(temp);
+}
+
+void GameManager::BonusFood()
+{
+    Obsticle temp;
+
+    int minX = 2;
+    int maxX = (GetWorld()->getWidth() - (2 * this->cellSize))/this->cellSize;
+    temp.trans.Position.x = randomRange(minX, maxX);// % ((GetWorld()->getWidth() - (2 * this->cellSize))/this->cellSize) + 2;
+    
+    int minY = 2;
+    int maxY = (GetWorld()->getHeight() - (2 * this->cellSize))/this->cellSize;
+    temp.trans.Position.y = randomRange(minY, maxY);//% ((GetWorld()->getHeight() - (2 * this->cellSize))/this->cellSize) + 2;
+    
+    temp.type = BonusCollectable;
+    temp.trans.Color.SetColour(0.0, 0.0, 1.0, 1);
+    temp.lifespan = 5;
+    ObsticleCollection::instance->getBonusCollectablesList()->push_back(temp);
+
+    std::cout << this->bonusFoodCnt << std::endl;
+}
+
+int GameManager::randomRange(int min, int max) //range : [min, max)
+{
+   static bool first = true;
+   if (first) 
+   {  
+      srand(time(NULL)); //seeding for the first time only!
+      first = false;
+   }
+   return min + rand() % (( max + 1 ) - min);
+}
+
+int GameManager::GetTimeScale()
+{
+    return (this->timeScale);
+}
+
+void GameManager::IncrementTimeScale(int amt)
+{
+    this->timeScale -= amt;
+    this->timeScale = (this->timeScale < 12) ? 12 : this->timeScale;
 }

@@ -9,6 +9,7 @@ struct Obsticle
 {
     Transform_t trans;
     e_CollisionType type;
+    double lifespan;
     //Vector3 rot
     //int width
     //int height
