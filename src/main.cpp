@@ -38,6 +38,13 @@ void PassPlayer(GameManager *manager, KeyCode keycode)
 }
 */
 
+void HandleEasterEggs(std::string arg)
+{
+    std::transform (arg.begin(), arg.end(), arg.begin(), ::tolower);
+    if (arg == "rainbow")
+        GameManager::instance->EnableRainbowMode();
+}
+
 //Looping of game
 void Update(GameManager *manager)
 {
@@ -80,10 +87,7 @@ void Update(GameManager *manager)
 
 int	main(int ac, char **av)
 {
-    (void)ac;
-    (void)av;
-    
-    if (ac > 1 && ac < 4)
+    if (ac > 1 && ac < 5)
     {
         try
         {
@@ -93,15 +97,25 @@ int	main(int ac, char **av)
                 "../libraries/libSFML.so"
             };
 
+            if (ac < 3)
+            {
+                throw "To few args provided, please provide a width and height";
+            }
+
             int width = std::stoi(av[1]);
             int height = std::stoi(av[2]);
+            
+            if (ac == 4)
+            {
+                std::string arg(av[3]);
+                HandleEasterEggs(arg);
+            }
 
             if (width < 640 || height < 480)
                 throw "The minimum resolution should be 640x480!";
                 
             if (width > 1600 || height > 900)
                 throw "The maximum resolution should be 1600x900!";
-                
 
             GameManager *manager = GameManager::instance;//new GameManager(libs, width, height);
             manager->SetupManagerForInstance(libs, width, height);

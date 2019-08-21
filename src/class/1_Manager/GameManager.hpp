@@ -19,6 +19,7 @@ class GameManager
 		int timeScale;
 		int bonusFoodCnt;
 		int bonusSpawnAmt;
+		bool rainbowMode;
 
 	public:
 		GameManager();
@@ -38,6 +39,7 @@ class GameManager
 		void GeneralFood();
 		void BonusFood();
 		int randomRange(int min, int max);
+		void EnableRainbowMode();
 };
 
 #endif

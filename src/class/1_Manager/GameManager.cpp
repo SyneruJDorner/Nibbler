@@ -123,6 +123,11 @@ void GameManager::passPlayer(KeyCode keycode)
     {
         Grid_t PlayerBody = Grid_t();
         PlayerBody.position = snakeBody->Body[i].Position;
+        
+        //Easter egg rainbow
+        if (rainbowMode == true)
+            snakeBody->Body[i].Color.SetColour((double)randomRange(0, 255)/255, (double)randomRange(0, 255)/255, (double)randomRange(0, 255)/255, 1.0);
+
         PlayerBody.color = snakeBody->Body[i].Color;
         getRenderEngine()->getGraphicLib()->draw(PlayerBody);  
     }
@@ -187,7 +192,8 @@ bool GameManager::Collisions()
                 bodyPart.Position.x = snakeBody->Body[snakeBody->Body.size() - 1].Position.x;
                 bodyPart.Position.y = snakeBody->Body[snakeBody->Body.size() - 1].Position.y; 
                 bodyPart.Direction = DIR_NUL;
-                bodyPart.Color.SetColour(1.0, 0.0, 0.0, 1.0);
+                bodyPart.Color.SetColour(1, 0, 0, 1.0);
+                
                 Player::instance->UpdateSnakeBody();
                 Player::instance->getSnake()->Body.push_back(bodyPart);
                 IncrementTimeScale(4);
@@ -200,7 +206,6 @@ bool GameManager::Collisions()
     {
         if (i->lifespan > 0)
         {
-            std::cout << "life: " << (double)GameManager::instance->GetTimeScale() / 1000 << std::endl;
             i->lifespan -= (double)GameManager::instance->GetTimeScale() / 1000;
         }
         else
@@ -294,8 +299,6 @@ void GameManager::BonusFood()
     temp.trans.Color.SetColour(0.0, 0.0, 1.0, 1);
     temp.lifespan = 5;
     ObsticleCollection::instance->getBonusCollectablesList()->push_back(temp);
-
-    std::cout << this->bonusFoodCnt << std::endl;
 }
 
 int GameManager::randomRange(int min, int max) //range : [min, max)
@@ -318,4 +321,9 @@ void GameManager::IncrementTimeScale(int amt)
 {
     this->timeScale -= amt;
     this->timeScale = (this->timeScale < 12) ? 12 : this->timeScale;
+}
+
+void GameManager::EnableRainbowMode()
+{
+    this->rainbowMode = true;
 }
