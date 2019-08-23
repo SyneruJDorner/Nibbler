@@ -10,6 +10,11 @@
         {
             virtual const char * what() const throw();
         };
+
+        struct CannotLoadSymbolException : public std::exception
+        {
+            virtual const char * what() const throw();
+        };
     };
 
 #endif // !RENDER_ENGINE_EXCEPTIONS_HPP

@@ -2,9 +2,9 @@
 # define GAMEMANAGER_HPP
 
 # include <string>
-# include "../3_Game_Classes/_World/World.hpp"
-# include "../5_Render_Engine/RenderEngine.hpp"
-# include "../6_PassInfo/PassInfo.hpp"
+# include "../3_Game_Classes/World/World.hpp"
+# include "../4_Render_Engine/RenderEngine.hpp"
+# include "../5_PassInfo/PassInfo.hpp"
 
 # include "../3_Game_Classes/Player/Player.hpp"
 

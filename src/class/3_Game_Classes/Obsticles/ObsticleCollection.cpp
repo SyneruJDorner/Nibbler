@@ -7,17 +7,17 @@ ObsticleCollection *ObsticleCollection::instance = new ObsticleCollection();
 
 ObsticleCollection::ObsticleCollection()
 {
-
+    return ;
 }
 
 ObsticleCollection::ObsticleCollection(const ObsticleCollection &obj)
 {
-    (void)obj;
+    *this = obj;
 }
 
 ObsticleCollection::~ObsticleCollection()
 {
-    
+    return ;
 }
 
 std::vector<Obsticle> *ObsticleCollection::getObsticleList()

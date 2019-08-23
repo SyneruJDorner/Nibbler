@@ -22,7 +22,7 @@ Input::Input(const Input &obj)
 
 Input::~Input()
 {
-
+    return ;
 }
 
 Input &Input::operator=(const Input &other)

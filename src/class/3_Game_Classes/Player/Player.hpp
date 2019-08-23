@@ -13,8 +13,6 @@ struct SnakeBody
 	Transform_t Tail;
 };
 
-
-
 class Player
 {
 	public:

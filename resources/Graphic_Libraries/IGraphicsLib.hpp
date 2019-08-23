@@ -1,7 +1,7 @@
 #ifndef GRAPHICS_LIB_H
 # define GRAPHICS_LIB_H
 
-    # include "../../src/class/6_PassInfo/PassInfo.hpp"
+    # include "../../src/class/5_PassInfo/PassInfo.hpp"
     # include "../../src/class/3_Game_Classes/Grid/Grid.hpp"
     # include <string>
 

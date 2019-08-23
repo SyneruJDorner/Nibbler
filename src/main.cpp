@@ -90,7 +90,7 @@ int	main(int ac, char **av)
             if (width > 1600 || height > 900)
                 throw "The maximum resolution should be 1600x900!";
 
-            GameManager *manager = GameManager::instance;//new GameManager(libs, width, height);
+            GameManager *manager = GameManager::instance;
             manager->SetupManagerForInstance(libs, width, height);
 
             Init();

@@ -1,5 +1,5 @@
 #include "Player.hpp"
-#include "../_World/World.hpp"
+#include "../World/World.hpp"
 
 //Create a singolton access point.
 //You can easily access anything though the following.
@@ -8,17 +8,17 @@ Player *Player::instance = new Player();
 
 Player::Player()
 {
-
+    return ;
 }
 
 Player::Player(const Player &obj)
 {
-    (void)obj;
+    *this = obj;
 }
 
 Player::~Player()
 {
-
+    return;
 }
 
 Player &Player::operator=(const Player &other)
@@ -97,11 +97,6 @@ void Player::UpdateSnakeBody()
     this->snakeBody.Body[this->snakeBody.Body.size() - 1].Position.x = this->snakeBody.Head.Position.x;
     this->snakeBody.Body[this->snakeBody.Body.size() - 1].Position.y = this->snakeBody.Head.Position.y;
     std::rotate(this->snakeBody.Body.rbegin(), this->snakeBody.Body.rbegin() + 1, this->snakeBody.Body.rend());
-}
-
-e_CollisionType Player::DetermineCollisions()
-{
-    return (e_CollisionType)None;
 }
 
 SnakeBody *Player::getSnake()

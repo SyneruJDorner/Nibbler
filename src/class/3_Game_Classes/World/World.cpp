@@ -7,7 +7,7 @@ World *World::instance = new World();
 
 World::World()
 {
-
+    return ;
 }
 
 World::World(int screenWidth, int screenHeight, int gridSize)
@@ -19,7 +19,7 @@ World::World(int screenWidth, int screenHeight, int gridSize)
 
 World::World(const World &obj)
 {
-    (void)obj;
+    *this = obj;
 }
 
 World::~World()
@@ -64,27 +64,27 @@ void World::SetupGrid(int screenWidth, int screenHeight, int gridDimensions)
         this->worldGrids[i] = new Grid_t[gridWidth];
 }
 
-Vector2 World::GetMinGrid()
+Vector2 World::GetMinGrid() const
 {
     return GridMinCoords;
 }
 
-Vector2 World::GetMaxGrid()
+Vector2 World::GetMaxGrid() const
 {
     return GridMaxCoords;
 }
 
-int World::GetGridSize()
+int World::GetGridSize() const
 {
     return (this->grdiSize);
 }
 
-int World::getHeight()
+int World::getHeight() const
 {
     return (this->height);
 }
 
-int World::getWidth()
+int World::getWidth() const
 {
     return (this->width);
 }

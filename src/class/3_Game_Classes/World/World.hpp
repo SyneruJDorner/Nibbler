@@ -15,11 +15,11 @@ class World
 		World &operator=(const World &other);
 		static World *instance;
 		void SetupGrid(int screenWidth, int screenHeight, int gridSize);
-        Vector2 GetMinGrid();
-        Vector2 GetMaxGrid();
-		int GetGridSize();
-		int getWidth();
-		int getHeight();
+        Vector2 GetMinGrid() const;
+        Vector2 GetMaxGrid() const;
+		int GetGridSize() const;
+		int getWidth() const;
+		int getHeight() const;
 
 	private:
         Vector2 GridMinCoords;

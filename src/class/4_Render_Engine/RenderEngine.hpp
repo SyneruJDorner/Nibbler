@@ -36,7 +36,7 @@ class RenderEngine
 		int getActiveLibNum() const;
 		void setLibDirectories(std::string libDir[]);
 		std::string *getLibDirectories() const;
-		int GetGridSize();
+		int GetGridSize() const;
 };
 
 #endif

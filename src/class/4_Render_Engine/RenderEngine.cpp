@@ -2,7 +2,7 @@
 
 RenderEngine::RenderEngine()
 {
-
+    return ;
 }
 
 RenderEngine::RenderEngine(std::string *libDir, int width, int height, int gridSize, int activeLib)
@@ -23,7 +23,7 @@ RenderEngine::RenderEngine(std::string *libDir, int width, int height, int gridS
 
 RenderEngine::RenderEngine(const RenderEngine &obj)
 {
-    *this = obj;
+    *this = RenderEngine(obj.getLibDirectories(), obj.getWidth(), obj.getHeight(), obj.GetGridSize(), obj.getActiveLibNum());
 }
 
 RenderEngine::~RenderEngine()
@@ -64,7 +64,8 @@ void RenderEngine::setGraphicLib(int libNumber)
         //Load The Library
         this->graphicLib = dlopen(this->libDirectories[libNumber].c_str(), RTLD_LAZY | RTLD_LOCAL);
         
-        if (!graphicLib) {
+        if (!graphicLib)
+        {
             //Throw Custom Exception, with error string 
             throw RenderEngineExceptions::LibraryNotFoundException();
         }
@@ -76,19 +77,19 @@ void RenderEngine::setGraphicLib(int libNumber)
         this->createLib = (createLib_t *) (dlsym(this->graphicLib, "createLib"));
         this->dlsym_error = dlerror();
 
-        if (dlsym_error) {
-            //std::cerr << "Cannot load symbol create: " << dlsym_error << '\n';
+        if (dlsym_error)
+        {
             //Throw Custom Exception, with error string 
-            return ;
+            throw RenderEngineExceptions::CannotLoadSymbolException();
         }
 
         this->destroyLib = (destroyLib_t *) (dlsym(this->graphicLib, "destroyLib"));
         this->dlsym_error = dlerror();
 
-        if (dlsym_error) {
-            //std::cerr << "Cannot load symbol create: " << dlsym_error << '\n';
+        if (dlsym_error)
+        {
             //Throw Custom Exception, with error string 
-            return ;
+            throw RenderEngineExceptions::CannotLoadSymbolException();
         }
 
         this->activeLib = this->createLib();
@@ -137,7 +138,7 @@ std::string *RenderEngine::getLibDirectories() const
     return this->libDirectories;
 }
 
-int RenderEngine::GetGridSize()
+int RenderEngine::GetGridSize() const
 {
     return (this->passInfo.gridSize);
 }
