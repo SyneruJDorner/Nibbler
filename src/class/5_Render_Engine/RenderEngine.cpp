@@ -1,5 +1,10 @@
 #include "RenderEngine.hpp"
 
+RenderEngine::RenderEngine()
+{
+
+}
+
 RenderEngine::RenderEngine(std::string *libDir, int width, int height, int gridSize, int activeLib)
 {
 
@@ -16,7 +21,7 @@ RenderEngine::RenderEngine(std::string *libDir, int width, int height, int gridS
     setGraphicLib(activeLib);
 }
 
-RenderEngine::RenderEngine(RenderEngine const &obj)
+RenderEngine::RenderEngine(const RenderEngine &obj)
 {
     *this = obj;
 }
@@ -29,10 +34,18 @@ RenderEngine::~RenderEngine()
 }
 
 
-RenderEngine &RenderEngine::operator=(RenderEngine const &other)
+RenderEngine &RenderEngine::operator=(const RenderEngine &other)
 {
-    (void)other;
-    return *this;
+    RenderEngine *renderEngine = new RenderEngine();
+    renderEngine->activeLib = other.activeLib;
+    renderEngine->activeLibNum = other.activeLibNum;
+    renderEngine->createLib = other.createLib;
+    renderEngine->destroyLib = other.destroyLib;
+    renderEngine->dlsym_error = other.dlsym_error;
+    renderEngine->graphicLib = other.graphicLib;
+    renderEngine->libDirectories = other.libDirectories;
+    renderEngine->passInfo = other.passInfo;
+    return *renderEngine;
 }
 
 
@@ -52,7 +65,6 @@ void RenderEngine::setGraphicLib(int libNumber)
         this->graphicLib = dlopen(this->libDirectories[libNumber].c_str(), RTLD_LAZY | RTLD_LOCAL);
         
         if (!graphicLib) {
-            // std::cerr << "Cannot load library: " << dlerror() << '\n';
             //Throw Custom Exception, with error string 
             throw RenderEngineExceptions::LibraryNotFoundException();
         }

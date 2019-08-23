@@ -16,48 +16,44 @@ e_GraphicLibInput LibGLFW::status = STD;
 void LibGLFW::keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     (void)action;
-    
-    //if (action == GLFW_PRESS)
-    //{
-        switch (key)
-        {
-            case GLFW_KEY_ESCAPE:
-                glfwDestroyWindow(window);
-                glfwTerminate();
-                LibGLFW::status = ESCAPE;
-                break;
-            case GLFW_KEY_F1:
-                LibGLFW::status = GLFW;
-                break;
-            case GLFW_KEY_F2:
-                LibGLFW::status = SDL2;
-                break;
-            case GLFW_KEY_F3:
-                LibGLFW::status = SFML;
-                break;
-            case GLFW_KEY_A:
-            case GLFW_KEY_LEFT:
-                LibGLFW::status = LEFT;
-                break;
-            case GLFW_KEY_D:
-            case GLFW_KEY_RIGHT:
-                LibGLFW::status = RIGHT;
-                break;
-            case GLFW_KEY_W:
-            case GLFW_KEY_UP:
-                LibGLFW::status = UP;
-                break;
-            case GLFW_KEY_S:
-            case GLFW_KEY_DOWN:
-                LibGLFW::status = DOWN;
-                break;
-            default:
-                LibGLFW::status = STD;
-                break;
-        }
-    //}
-    //else
-    //    LibGLFW::status = STD;
+
+    switch (key)
+    {
+        case GLFW_KEY_ESCAPE:
+            glfwDestroyWindow(window);
+            glfwTerminate();
+            LibGLFW::status = ESCAPE;
+            break;
+        case GLFW_KEY_F1:
+            LibGLFW::status = GLFW;
+            break;
+        case GLFW_KEY_F2:
+            LibGLFW::status = SDL2;
+            break;
+        case GLFW_KEY_F3:
+            LibGLFW::status = SFML;
+            break;
+        case GLFW_KEY_A:
+        case GLFW_KEY_LEFT:
+            LibGLFW::status = LEFT;
+            break;
+        case GLFW_KEY_D:
+        case GLFW_KEY_RIGHT:
+            LibGLFW::status = RIGHT;
+            break;
+        case GLFW_KEY_W:
+        case GLFW_KEY_UP:
+            LibGLFW::status = UP;
+            break;
+        case GLFW_KEY_S:
+        case GLFW_KEY_DOWN:
+            LibGLFW::status = DOWN;
+            break;
+        default:
+            LibGLFW::status = STD;
+            break;
+    }
+
     (void)scancode;
     (void)mods;
 }
@@ -167,34 +163,7 @@ GLfloat LibGLFW::screenPosY(float pixelPos)
 
 void LibGLFW::draw(Grid_t point)
 {
-    /*
-    bool isEqual = false;
-
-    for (auto i = this->points.begin(); i != this->points.end(); ++i)
-    {
-        if (point.position.x == i->position.x)
-            if (point.position.y == i->position.y)
-                isEqual = true;
-    }
-
-    if (!isEqual)
-        this->points.push_back(point);
-    */
-   
-    int blockSize = passInfo.gridSize;//GameManager::instance->GetWorld()->GetGridSize();
-
-    /*
-    for (auto i = this->points.begin(); i != this->points.end(); ++i)
-    {
-        glBegin(GL_POLYGON);
-            glColor3f(i->color.r, i->color.g, i->color.b);
-            glVertex3f((i->position.x * 10) - (blockSize / 2), (i->position.y * 10) - (blockSize / 2), 0.0);
-            glVertex3f((i->position.x * 10) + (blockSize / 2), (i->position.y * 10) - (blockSize / 2), 0.0);
-            glVertex3f((i->position.x * 10) + (blockSize / 2), (i->position.y * 10) + (blockSize / 2), 0.0);
-            glVertex3f((i->position.x * 10) - (blockSize / 2), (i->position.y * 10) + (blockSize / 2), 0.0);
-        glEnd();
-    }
-    */
+    int blockSize = passInfo.gridSize;
     
     glBegin(GL_POLYGON);
         glColor3f(point.color.r, point.color.g, point.color.b);

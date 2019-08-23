@@ -20,10 +20,11 @@ class RenderEngine
 		PassInfo passInfo;
 
 	public:
+		RenderEngine();
 		RenderEngine(std::string *libDir, int width, int height, int gridSize, int activeLib);
-		RenderEngine(RenderEngine const &obj);
+		RenderEngine(const RenderEngine &obj);
 		virtual ~RenderEngine();
-		RenderEngine &operator=(RenderEngine const &other);
+		RenderEngine &operator=(const RenderEngine &other);
 
 		IGraphicsLib *getGraphicLib() const;
 		void setGraphicLib(int libNumber);

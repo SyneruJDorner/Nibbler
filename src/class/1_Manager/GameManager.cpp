@@ -15,7 +15,7 @@ GameManager::GameManager(std::string libsDir[], int width, int height)
     SetupManagerForInstance(libsDir, width, height);
 }
 
-GameManager::GameManager(GameManager &obj)
+GameManager::GameManager(const GameManager &obj)
 {
     RenderEngine *engine = new RenderEngine(
         obj.renderEngine->getLibDirectories(),
@@ -34,18 +34,18 @@ GameManager::~GameManager()
     delete this->world;
 }
 
-GameManager &GameManager::operator=(GameManager const &other)
+GameManager &GameManager::operator=(const GameManager &other)
 {
-    RenderEngine *engine = new RenderEngine(
-            other.renderEngine->getLibDirectories(),
-            other.renderEngine->getWidth(),
-            other.renderEngine->getHeight(),
-            other.renderEngine->GetGridSize(),
-            other.renderEngine->getActiveLibNum()
-        );
-
-    this->renderEngine = engine;
-    return *this;
+    GameManager *gameManager = new GameManager();
+    gameManager->bonusFoodCnt = other.bonusFoodCnt;
+    gameManager->bonusSpawnAmt = other.bonusSpawnAmt;
+    gameManager->cellSize = other.cellSize;
+    gameManager->instance = other.instance;
+    gameManager->rainbowMode = other.rainbowMode;
+    gameManager->renderEngine = other.renderEngine;
+    gameManager->timeScale = other.timeScale;
+    gameManager->world = other.world;
+    return *gameManager;
 }
 
 void GameManager::SetupManagerForInstance(std::string libsDir[], int width, int height)
@@ -267,9 +267,7 @@ bool GameManager::Collisions()
 void GameManager::GeneralFood()
 {
     Obsticle temp;
-    //temp.trans.Position.x = rand() % ((GetWorld()->getWidth() - (2 * this->cellSize))/this->cellSize) + 2;
-    //temp.trans.Position.y = rand() % ((GetWorld()->getHeight() - (2 * this->cellSize))/this->cellSize) + 2;
-    
+
     int minX = 2;
     int maxX = (GetWorld()->getWidth() - (2 * this->cellSize))/this->cellSize;
     temp.trans.Position.x = randomRange(minX, maxX);// % ((GetWorld()->getWidth() - (2 * this->cellSize))/this->cellSize) + 2;
@@ -289,11 +287,11 @@ void GameManager::BonusFood()
 
     int minX = 2;
     int maxX = (GetWorld()->getWidth() - (2 * this->cellSize))/this->cellSize;
-    temp.trans.Position.x = randomRange(minX, maxX);// % ((GetWorld()->getWidth() - (2 * this->cellSize))/this->cellSize) + 2;
+    temp.trans.Position.x = randomRange(minX, maxX);
     
     int minY = 2;
     int maxY = (GetWorld()->getHeight() - (2 * this->cellSize))/this->cellSize;
-    temp.trans.Position.y = randomRange(minY, maxY);//% ((GetWorld()->getHeight() - (2 * this->cellSize))/this->cellSize) + 2;
+    temp.trans.Position.y = randomRange(minY, maxY);
     
     temp.type = BonusCollectable;
     temp.trans.Color.SetColour(0.0, 0.0, 1.0, 1);

@@ -13,9 +13,11 @@ Input::Input()
     ResetInput();
 }
 
-Input::Input(Input &obj)
+Input::Input(const Input &obj)
 {
-    (void)obj;
+    Input *input = new Input();
+    input->instance = obj.instance;
+    input->keyCode = obj.keyCode;
 }
 
 Input::~Input()
@@ -23,12 +25,13 @@ Input::~Input()
 
 }
 
-/*
-Input &Input::operator=(Input const &other)
+Input &Input::operator=(const Input &other)
 {
-
+    Input *input = new Input();
+    input->instance = other.instance;
+    input->keyCode = other.keyCode;
+    return *input;
 }
-*/
 
 void Input::ResetInput()
 {

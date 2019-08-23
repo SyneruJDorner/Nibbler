@@ -10,9 +10,9 @@ class World
 	public:
 		World();
 		World(int screenWidth, int screenHeight, int gridSize);
-		World(World &obj);
+		World(const World &obj);
 		virtual ~World();
-		World &operator=(World const &other);
+		World &operator=(const World &other);
 		static World *instance;
 		void SetupGrid(int screenWidth, int screenHeight, int gridSize);
         Vector2 GetMinGrid();

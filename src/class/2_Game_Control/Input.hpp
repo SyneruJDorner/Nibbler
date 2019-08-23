@@ -19,9 +19,9 @@ class Input
 {
 	public:
 		Input();
-		Input(Input &obj);
+		Input(const Input &obj);
 		virtual ~Input();
-		Input &operator=(Input const &other);
+		Input &operator=(const Input &other);
 		static Input *instance;
 		KeyCode DetermineInputs(e_GraphicLibInput output);
 		void ResetInput();

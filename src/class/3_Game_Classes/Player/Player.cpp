@@ -11,7 +11,7 @@ Player::Player()
 
 }
 
-Player::Player(Player &obj)
+Player::Player(const Player &obj)
 {
     (void)obj;
 }
@@ -21,12 +21,13 @@ Player::~Player()
 
 }
 
-/*
-Player &Player::operator=(Player const &other)
+Player &Player::operator=(const Player &other)
 {
-    (void)other;
+    Player *player = new Player();
+    player->instance = other.instance;
+    player->snakeBody = other.snakeBody;
+    return *player;
 }
-*/
 
 void Player::PlayerMovement(KeyCode keycode)
 {
@@ -100,46 +101,6 @@ void Player::UpdateSnakeBody()
 
 e_CollisionType Player::DetermineCollisions()
 {
-    /*
-    //Determine if the head touches any of the following:
-    //-It's body
-    //-It's tail
-    //-An Obsticle
-    //-Edge of world
-    //-A fruit/collectable item
-
-    Vector2 headPos = this->snakeBody.Head;
-
-    //Body Collision
-    for(size_t i = 0; i < this->snakeBody.Body.size(); i++)
-    {
-        if (headPos.x == this->snakeBody.Body[i].x &&
-            headPos.y == this->snakeBody.Body[i].y)
-            return (e_CollisionType)Body;
-    }
-
-    //Tail Collision
-    if (headPos.x == this->snakeBody.Tail.x &&
-        headPos.y == this->snakeBody.Tail.y)
-        return (e_CollisionType)Tail;
-    */
-
-    //Obsticle
-    /*
-    for ()
-    if (headPos == this->snakeBody.Tail)
-        return (e_CollisionType)Tail;
-    */
-
-
-    /*
-    //Edge of world
-    if (headPos.x <= World::instance->GetMinGrid().x || 
-        headPos.x >= World::instance->GetMaxGrid().x ||
-        headPos.y <= World::instance->GetMinGrid().y || 
-        headPos.y >= World::instance->GetMaxGrid().y)
-        return (e_CollisionType)Obsticle;
-    */
     return (e_CollisionType)None;
 }
 

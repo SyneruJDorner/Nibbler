@@ -19,9 +19,9 @@ class Player
 {
 	public:
 		Player();
-		Player(Player &obj);
+		Player(const Player &obj);
 		virtual ~Player();
-		Player &operator=(Player const &other);
+		Player &operator=(const Player &other);
 		static Player *instance;
 		void PlayerMovement(KeyCode keycode);
 		e_CollisionType DetermineCollisions();

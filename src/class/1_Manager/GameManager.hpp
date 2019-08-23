@@ -24,9 +24,9 @@ class GameManager
 	public:
 		GameManager();
 		GameManager(std::string libsDir[], int width, int height);
-		GameManager(GameManager &obj);
+		GameManager(const GameManager &obj);
 		virtual ~GameManager();
-		GameManager &operator=(GameManager const &other);
+		GameManager &operator=(const GameManager &other);
 		static GameManager *instance;
 		void SetupManagerForInstance(std::string libsDir[], int width, int height);
 

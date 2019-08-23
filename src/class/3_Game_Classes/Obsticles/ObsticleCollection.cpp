@@ -10,7 +10,7 @@ ObsticleCollection::ObsticleCollection()
 
 }
 
-ObsticleCollection::ObsticleCollection(ObsticleCollection &obj)
+ObsticleCollection::ObsticleCollection(const ObsticleCollection &obj)
 {
     (void)obj;
 }
@@ -35,9 +35,12 @@ std::vector<Obsticle> *ObsticleCollection::getBonusCollectablesList()
     return &this->BonusCollectablesList;
 }
 
-/*
-ObsticleCollection &ObsticleCollection::operator=(ObsticleCollection const &other)
+ObsticleCollection &ObsticleCollection::operator=(const ObsticleCollection &other)
 {
-
+    ObsticleCollection *obsticleCollection = new ObsticleCollection();
+    obsticleCollection->BonusCollectablesList = other.BonusCollectablesList;
+    obsticleCollection->CollectablesList = other.CollectablesList;
+    obsticleCollection->instance = other.instance;
+    obsticleCollection->ObsticlesList = other.ObsticlesList;
+    return *obsticleCollection;
 }
-*/

@@ -7,9 +7,9 @@ class Collisions
 {
 	public:
 		Collisions();
-		Collisions(Collisions &obj);
+		Collisions(const Collisions &obj);
 		virtual ~Collisions();
-		Collisions &operator=(Collisions const &other);
+		Collisions &operator=(const Collisions &other);
 };
 
 #endif

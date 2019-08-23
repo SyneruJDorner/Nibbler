@@ -17,7 +17,7 @@ World::World(int screenWidth, int screenHeight, int gridSize)
     this->height = screenHeight;
 }
 
-World::World(World &obj)
+World::World(const World &obj)
 {
     (void)obj;
 }
@@ -34,12 +34,18 @@ World::~World()
     delete[] this->worldGrids;
 }
 
-/*
-Player &Player::operator=(Player const &other)
+World &World::operator=(const World &other)
 {
-    (void)other;
+    World *world = new World();
+    world->grdiSize = other.grdiSize;
+    world->GridMaxCoords = other.GridMaxCoords;
+    world->GridMinCoords = other.GridMinCoords;
+    world->height = other.height;
+    world->instance = other.instance;
+    world->width = other.width;
+    world->worldGrids = other.worldGrids;
+    return *world;
 }
-*/
 
 void World::SetupGrid(int screenWidth, int screenHeight, int gridDimensions)
 {

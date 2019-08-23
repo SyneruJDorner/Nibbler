@@ -5,7 +5,7 @@ Collisions::Collisions()
 
 }
 
-Collisions::Collisions(Collisions &obj)
+Collisions::Collisions(const Collisions &obj)
 {
     (void)obj;
 }
@@ -15,9 +15,9 @@ Collisions::~Collisions()
 
 }
 
-/*
-Collisions &Collisions::operator=(Collisions const &other)
+Collisions &Collisions::operator=(const Collisions &other)
 {
-
+    Collisions *collisions = new Collisions;
+    (void)other;
+    return *collisions;
 }
-*/

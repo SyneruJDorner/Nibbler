@@ -9,9 +9,9 @@ class ObsticleCollection
 {
 	public:
 		ObsticleCollection();
-		ObsticleCollection(ObsticleCollection &obj);
+		ObsticleCollection(const ObsticleCollection &obj);
 		virtual ~ObsticleCollection();
-		ObsticleCollection &operator=(ObsticleCollection const &other);
+		ObsticleCollection &operator=(const ObsticleCollection &other);
 		static ObsticleCollection *instance;
 
 		std::vector<Obsticle> *getObsticleList();

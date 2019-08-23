@@ -11,33 +11,6 @@ void Init()
     return ;
 }
 
-/*
-void PassPlayer(GameManager *manager, KeyCode keycode)
-{
-    //Queue everything for rendering
-    Player::instance->PlayerMovement(keycode);
-    SnakeBody snakeBody = Player::instance->getSnake();
-
-    //Queueing head
-    Grid_t PlayerHead = Grid_t();
-    PlayerHead.position = snakeBody.Head.Position;
-    PlayerHead.color = snakeBody.Head.Color;
-    manager->getRenderEngine()->getGraphicLib()->draw(PlayerHead);
-
-    //Queueing body
-    for (size_t i = 0; i < snakeBody.Body.size(); i++)
-    {
-        Grid_t PlayerBody = Grid_t();
-        PlayerBody.position = snakeBody.Body[i].Position;
-        PlayerBody.color = snakeBody.Body[i].Color;
-        manager->getRenderEngine()->getGraphicLib()->draw(PlayerBody);  
-    }
-    
-    //Finally render everything we queued
-    manager->getRenderEngine()->getGraphicLib()->updateDisplay();
-}
-*/
-
 void HandleEasterEggs(std::string arg)
 {
     std::transform (arg.begin(), arg.end(), arg.begin(), ::tolower);
